@@ -1,9 +1,8 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
-
-const queryClient = new QueryClient();
+import { queryClient } from "./queryClient";
 
 export default function ReactQueryProvider({ children }: { children: ReactNode }) {
   return (
