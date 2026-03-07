@@ -38,7 +38,7 @@ const Register = () => {
   };
 
   return (
-    <section className="text-center flex flex-col gap-4 border border-white/40 p-8 rounded-lg shadow-md w-full max-w-md mx-4">
+    <section className="text-center flex flex-col gap-4 border border-green-500 p-8 rounded-lg shadow-md w-full max-w-md mx-4">
       <h1 className="text-2xl font-extrabold">Create an account</h1>
       <form
         className="flex flex-col gap-4 items-center"
@@ -87,14 +87,14 @@ const Register = () => {
         </div>
         <button
           disabled={registerMutation.isPending}
-          className="bg-purple-700 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-purple-600 transition"
+          className="bg-green-600 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-green-700 transition"
         >
           {registerMutation.isPending ? "Registering..." : "Register"}
         </button>
       </form>
       <p className="text-xml text-gray-500">
         Already have an account?{" "}
-        <span className="underline cursor-pointer font-semibold text-purple-500 hover:text-purple-700 transition">
+        <span className="underline cursor-pointer font-semibold text-green-500 hover:text-green-700 transition">
           <Link href="/login">Sign In</Link>
         </span>
       </p>

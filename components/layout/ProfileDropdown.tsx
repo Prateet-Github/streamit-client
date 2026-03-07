@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useCurrentUser } from "@/queries/auth";
+import { User, Upload, Settings, LogOut } from "lucide-react";
 
 type ProfileDropdownProps = {
   closeDropdown: () => void;
@@ -10,53 +11,64 @@ export default function ProfileDropdown({
 }: ProfileDropdownProps) {
   const { data: currentUser, isLoading } = useCurrentUser();
 
+  const menuItems = [
+    {
+      icon: User,
+      label: "Profile",
+    },
+    {
+      icon: Upload,
+      label: "Upload Video",
+    },
+    {
+      icon: Settings,
+      label: "Settings",
+    },
+  ];
+
   if (isLoading) {
     return (
-      <div className="absolute flex flex-col gap-4 right-0 top-12 w-72 p-4 bg-black border border-green-500 rounded-lg shadow-lg">
-        <p>Loading...</p>
+      <div className="absolute right-0 top-12 w-72 p-4 bg-black border border-green-500 rounded-lg shadow-lg">
+        <p className="text-sm text-white/70">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="absolute flex flex-col gap-4 right-0 top-12 w-72 p-4 bg-black border border-green-500 rounded-lg shadow-lg">
+    <div className="absolute right-0 top-12 w-72 p-4 bg-black border border-green-500 rounded-lg shadow-lg flex flex-col gap-4">
+      {/* User Info */}
       <div className="flex flex-col items-center gap-2">
         <Image
           src="/pfp.jpg"
-          alt="pfp"
+          alt="profile"
           width={40}
           height={40}
-          className="rounded-full border-2 border-green-500 hover:scale-105 transition-transform transition-duration-200 cursor-pointer"
+          className="rounded-full border-2 border-green-500 hover:scale-105 transition cursor-pointer"
         />
-        <p>{currentUser?.username || "Loading..."}</p>
-      </div>
-      <div className="flex border-y border-green-500/50 flex-col gap-2 py-4">
-        <button
-          className="block w-full text-left hover:bg-white/10 p-2 rounded cursor-pointer"
-          onClick={closeDropdown}
-        >
-          Profile
-        </button>
 
-        <button
-          className="block w-full text-left hover:bg-white/10 p-2 rounded cursor-pointer"
-          onClick={closeDropdown}
-        >
-          Profile
-        </button>
-
-        <button
-          className="block w-full text-left hover:bg-white/10 p-2 rounded cursor-pointer"
-          onClick={closeDropdown}
-        >
-          Profile
-        </button>
+        <p className="font-medium text-white">{currentUser?.username}</p>
       </div>
 
+      {/* Menu Items */}
+      <div className="flex flex-col gap-1 border-y border-green-500/40 py-3">
+        {menuItems.map(({ icon: Icon, label }) => (
+          <button
+            key={label}
+            onClick={closeDropdown}
+            className="flex items-center gap-3 w-full text-left p-2 rounded hover:bg-white/10 hover:text-green-400 transition"
+          >
+            <Icon size={18} />
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Logout */}
       <button
-        className="block w-full text-left hover:bg-white/10 p-2 rounded cursor-pointer"
         onClick={closeDropdown}
+        className="flex items-center cursor-pointer gap-3 w-full text-left p-2 rounded hover:bg-red-500/10 text-red-400 transition"
       >
+        <LogOut size={18} />
         Logout
       </button>
     </div>
