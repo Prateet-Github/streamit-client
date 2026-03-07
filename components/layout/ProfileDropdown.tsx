@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useCurrentUser } from "@/queries/auth";
 import { User, Upload, Settings, LogOut } from "lucide-react";
+import useLogout from "@/hooks/useLogout";
 
 type ProfileDropdownProps = {
   closeDropdown: () => void;
@@ -10,6 +11,7 @@ export default function ProfileDropdown({
   closeDropdown,
 }: ProfileDropdownProps) {
   const { data: currentUser, isLoading } = useCurrentUser();
+  const logout = useLogout();
 
   const menuItems = [
     {
@@ -65,7 +67,10 @@ export default function ProfileDropdown({
 
       {/* Logout */}
       <button
-        onClick={closeDropdown}
+        onClick={() => {
+          logout();
+          closeDropdown();
+        }}
         className="flex items-center cursor-pointer gap-3 w-full text-left p-2 rounded hover:bg-red-500/10 text-red-400 transition"
       >
         <LogOut size={18} />
