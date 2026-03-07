@@ -1,61 +1,54 @@
 "use client";
 
-// import { Menu, X } from "lucide-react";
-import { useState } from "react";
-// import Link from "next/link";
+import { useState, useRef } from "react";
 import Image from "next/image";
-
-// const navItems = [
-//   { href: "#about", label: "About" },
-//   { href: "#skills", label: "Skills" },
-//   { href: "#projects", label: "Projects" },
-//   { href: "#contact", label: "Contact" },
-// ];
+import ProfileDropdown from "./ProfileDropdown";
+import useClickOutside from "@/hooks/useClickOutside";
 
 const Navbar = () => {
-  // const [isOpen, setIsOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(profileRef, () => setIsProfileOpen(false));
 
   return (
     <header className="sticky top-0 z-50 border-2 border-green-500 rounded-lg">
-      <nav className="mx-auto justify-between flex items-center px-4 py-3">
+      <nav className="mx-auto flex items-center justify-between px-4 py-3">
+        {/* Logo */}
         <a href="/">
-          <span className="font-extrabold  text-2xl text-green-500">
+          <span className="font-extrabold text-2xl text-green-500">
             StreamIt
           </span>
         </a>
 
+        {/* Input  */}
+
         <input
           type="text"
-          className="border-2 border-green-500 px-4 py-2 rounded-full outline-0 md:w-2xl  bg-transparent text-white"
           placeholder="Search"
+          className="border-2 border-green-500 px-4 py-2 rounded-full outline-0 md:w-2xl bg-transparent text-white"
         />
 
-        <div className="cursor-pointer">
-          <Image
-            src="/pfp.jpg"
-            alt="pfp"
-            width={40}
-            height={40}
-            className="rounded-full border-2 border-green-500"
-          ></Image>
+        {/* Profile */}
+        <div className="relative" ref={profileRef}>
+          <div
+            className="cursor-pointer"
+            onClick={() => setIsProfileOpen((prev) => !prev)}
+          >
+            <Image
+              src="/pfp.jpg"
+              alt="pfp"
+              width={40}
+              height={40}
+              className="rounded-full border-2 border-green-500"
+            />
+          </div>
+
+          {isProfileOpen && (
+            <ProfileDropdown closeDropdown={() => setIsProfileOpen(false)} />
+          )}
         </div>
-
-        {/* <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X /> : <Menu />}
-        </button> */}
       </nav>
-
-      {/* {isOpen && (
-        <ul className="flex bg-bg absolute w-full flex-col items-center gap-4 md:hidden border-b border-white/5 p-4">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <Link href={item.href} onClick={() => setIsOpen(false)}>
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )} */}
     </header>
   );
 };
