@@ -5,11 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import ProfileDropdown from "./ProfileDropdown";
 import useClickOutside from "@/hooks/useClickOutside";
-import { Search } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 import { useCurrentUser } from "@/queries/auth";
 
 const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
   const { data: currentUser, isLoading } = useCurrentUser();
@@ -20,9 +21,18 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-black border border-green-500 rounded-lg">
       <nav className="mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link href="/" className="font-extrabold text-2xl text-green-500">
-          StreamIt
-        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            className="p-2 rounded hover:bg-white/10 cursor-pointer"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          <Link href="/" className="font-extrabold text-4xl text-green-500">
+            StreamIt
+          </Link>
+        </div>
 
         {/* Search */}
         <div className="relative w-40 md:w-96">
