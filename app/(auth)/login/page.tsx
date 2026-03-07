@@ -64,7 +64,7 @@ const Login = () => {
         </div>
         <button
           disabled={loginMutation.isPending}
-          className="bg-green-600 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-purple-600 transition"
+          className="bg-green-600 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-green-700 transition"
         >
           {loginMutation.isPending ? "Signing In..." : "Sign In"}
         </button>
