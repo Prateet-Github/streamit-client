@@ -6,15 +6,21 @@ import { useLogin } from "@/queries/auth";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Login = () => {
   const router = useRouter();
   const loginMutation = useLogin();
+  const queryClient = useQueryClient();
 
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +29,8 @@ const Login = () => {
       onSuccess: (data) => {
         localStorage.setItem("token", data.token);
         console.log("Logged In:", data);
-        toast.success("Welcome back! Redirecting...");
+        queryClient.setQueryData(["currentUser"], data.user);
+        toast.success(`Welcome back, ${data.user.name}! Redirecting...`);
         setTimeout(() => {
           router.push("/");
         }, 1000);
@@ -37,9 +44,12 @@ const Login = () => {
 
   return (
     <section className="text-center flex flex-col gap-4 border border-green-500  p-8 rounded-lg shadow-md w-full max-w-md mx-4">
-      <h1 className="text-2xl font-extrabold">Welcome back</h1>
+      <h1 className="text-3xl font-extrabold text-green-500">Welcome back</h1>
+      <p className="text-gray-400 text-sm">
+        Sign in to your account to continue enjoying StreamIt
+      </p>
       <form
-        className="flex flex-col gap-4 items-center"
+        className="flex flex-col gap-5 items-center"
         onSubmit={handleSubmit}
       >
         <div className="relative w-full">
@@ -48,8 +58,9 @@ const Login = () => {
           <input
             type="email"
             placeholder="Email"
-            className="border border-white/40 p-4 pl-12 rounded-full w-full focus:outline-none"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            name="email"
+            onChange={handleChange}
           />
         </div>
         <div className="relative w-full">
@@ -58,20 +69,21 @@ const Login = () => {
           <input
             type="password"
             placeholder="Password"
-            className="border border-white/40 p-4 pl-12 rounded-full w-full focus:outline-none"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            name="password"
+            onChange={handleChange}
           />
         </div>
         <button
           disabled={loginMutation.isPending}
-          className="bg-green-600 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-green-700 transition"
+          className="bg-green-600 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-green-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {loginMutation.isPending ? "Signing In..." : "Sign In"}
         </button>
       </form>
       <p className="text-xml text-gray-500">
         Don't have an account?{" "}
-        <span className="underline cursor-pointer font-semibold text-green-500 hover:text-green-700 transition">
+        <span className="underline cursor-pointer font-semibold text-green-500 hover:text-green-600 transition">
           <Link href="/register">Sign Up</Link>
         </span>
       </p>

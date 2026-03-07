@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Lock, Mail, UserRound } from "lucide-react";
+import { Lock, Mail, UserRound, AtSign } from "lucide-react";
 import { useRegister } from "@/queries/auth";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Register = () => {
   const router = useRouter();
   const registerMutation = useRegister();
+  const queryClient = useQueryClient();
 
   const [form, setForm] = useState({
     username: "",
@@ -18,6 +20,10 @@ const Register = () => {
     password: "",
   });
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -25,6 +31,7 @@ const Register = () => {
       onSuccess: (data) => {
         localStorage.setItem("token", data.token);
         console.log("Registered:", data);
+        queryClient.setQueryData(["currentUser"], data.user);
         toast.success("Registration successful! Redirecting...");
         setTimeout(() => {
           router.push("/");
@@ -39,19 +46,25 @@ const Register = () => {
 
   return (
     <section className="text-center flex flex-col gap-4 border border-green-500 p-8 rounded-lg shadow-md w-full max-w-md mx-4">
-      <h1 className="text-2xl font-extrabold">Create an account</h1>
+      <h1 className="text-3xl font-extrabold text-green-500">
+        Create an account
+      </h1>
+      <p className="text-gray-400 text-sm">
+        Join StreamIt and start sharing videos with the world!
+      </p>
       <form
-        className="flex flex-col gap-4 items-center"
+        className="flex flex-col gap-5 items-center"
         onSubmit={handleSubmit}
       >
         <div className="relative w-full">
-          <UserRound className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 w-5 h-5" />
+          <AtSign className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 w-5 h-5" />
 
           <input
             type="text"
             placeholder="Username"
-            className="border border-white/40 p-4 pl-12 rounded-full w-full focus:outline-none"
-            onChange={(e) => setForm({ ...form, username: e.target.value })}
+            className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            name="username"
+            onChange={handleChange}
           />
         </div>
 
@@ -61,8 +74,9 @@ const Register = () => {
           <input
             type="text"
             placeholder="Full Name"
-            className="border border-white/40 p-4 pl-12 rounded-full w-full focus:outline-none"
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            name="name"
+            onChange={handleChange}
           />
         </div>
         <div className="relative w-full">
@@ -71,8 +85,9 @@ const Register = () => {
           <input
             type="email"
             placeholder="Email"
-            className="border border-white/40 p-4 pl-12 rounded-full w-full focus:outline-none"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            name="email"
+            onChange={handleChange}
           />
         </div>
         <div className="relative w-full">
@@ -81,20 +96,21 @@ const Register = () => {
           <input
             type="password"
             placeholder="Password"
-            className="border border-white/40 p-4 pl-12 rounded-full w-full focus:outline-none"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            name="password"
+            onChange={handleChange}
           />
         </div>
         <button
           disabled={registerMutation.isPending}
-          className="bg-green-600 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-green-700 transition"
+          className="bg-green-600 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-green-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {registerMutation.isPending ? "Registering..." : "Register"}
         </button>
       </form>
-      <p className="text-xml text-gray-500">
+      <p className="text-xm text-gray-500">
         Already have an account?{" "}
-        <span className="underline cursor-pointer font-semibold text-green-500 hover:text-green-700 transition">
+        <span className="underline cursor-pointer font-semibold text-green-500 hover:text-green-600 transition">
           <Link href="/login">Sign In</Link>
         </span>
       </p>
