@@ -8,7 +8,15 @@ type ProfileDropdownProps = {
 export default function ProfileDropdown({
   closeDropdown,
 }: ProfileDropdownProps) {
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser, isLoading } = useCurrentUser();
+
+  if (isLoading) {
+    return (
+      <div className="absolute flex flex-col gap-4 right-0 top-12 w-72 p-4 bg-black border border-green-500 rounded-lg shadow-lg">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="absolute flex flex-col gap-4 right-0 top-12 w-72 p-4 bg-black border border-green-500 rounded-lg shadow-lg">
