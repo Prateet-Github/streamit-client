@@ -21,9 +21,12 @@ const Login = () => {
 
     loginMutation.mutate(form, {
       onSuccess: (data) => {
+        localStorage.setItem("token", data.token);
         console.log("Logged In:", data);
         toast.success("Welcome back! Redirecting...");
-        router.push("/");
+        setTimeout(() => {
+          router.push("/");
+        }, 1000);
       },
       onError: (err: any) => {
         console.log("Error:", err.message);

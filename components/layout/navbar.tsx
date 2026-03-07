@@ -9,6 +9,8 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
+
+
   useClickOutside(profileRef, () => setIsProfileOpen(false));
 
   return (

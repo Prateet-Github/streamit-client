@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import api from "@/services/api";
 
 export const useRegister = () => {
@@ -23,6 +23,17 @@ export const useLogin = () => {
     }) => {
       const res = await api.post("/auth/login", data);
       return res.data;
+    },
+  });
+};
+
+export const useCurrentUser = () => {
+  return useQuery({
+    queryKey: ["currentUser"],
+    queryFn: async () => {
+      const res = await api.get("/auth/me");
+      return res.data.user;
+
     },
   });
 };

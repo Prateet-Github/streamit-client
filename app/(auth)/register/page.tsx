@@ -23,9 +23,12 @@ const Register = () => {
 
     registerMutation.mutate(form, {
       onSuccess: (data) => {
+        localStorage.setItem("token", data.token);
         console.log("Registered:", data);
         toast.success("Registration successful! Redirecting...");
-        router.push("/");
+        setTimeout(() => {
+          router.push("/");
+        }, 1000);
       },
       onError: (err: any) => {
         console.log("Error:", err.message);
