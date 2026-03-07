@@ -12,7 +12,7 @@ const Navbar = () => {
   useClickOutside(profileRef, () => setIsProfileOpen(false));
 
   return (
-    <header className="sticky top-0 z-50 border border-green-500 rounded-lg">
+    <header className="sticky bg-black top-0 z-50 border border-green-500 rounded-lg">
       <nav className="mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
         <a href="/">
