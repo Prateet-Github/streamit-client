@@ -16,7 +16,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
     <aside
       className={`${
         isSidebarOpen ? "w-64" : "w-16"
-      } transition-all duration-300 bg-black border border-green-500 text-white h-screen-[calc(100vh-16)] overflow-hidden`}
+      } transition-all duration-300  bg-white dark:bg-black border border-green-500 text-black dark:text-white h-screen-[calc(100vh-16)] overflow-hidden`}
     >
       <nav className="flex flex-col gap-2 p-2">
         {items.map(({ label, icon: Icon, href }) => (

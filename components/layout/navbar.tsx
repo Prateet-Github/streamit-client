@@ -25,8 +25,8 @@ export default function Navbar({
   useClickOutside(profileRef, () => setIsProfileOpen(false));
 
   return (
-    <header className="sticky top-0 z-50 bg-black border border-green-500">
-      <nav className="flex items-center justify-between px-4 py-3">
+    <header className="sticky top-0 z-50  text-black dark:text-white bg-white dark:bg-black border border-green-500">
+      <nav className="flex items-center justify-between px-4 py-3 ">
         {/* LEFT */}
         <div className="flex items-center gap-3">
           <button
@@ -52,7 +52,7 @@ export default function Navbar({
             type="text"
             placeholder="Search"
             aria-label="Search videos"
-            className="border border-green-500 px-4 py-2 pl-10 rounded-full w-full bg-transparent text-white outline-none"
+            className="border  border-green-500 px-4 py-2 pl-10 rounded-full w-full bg-transparent outline-none"
           />
         </div>
 
