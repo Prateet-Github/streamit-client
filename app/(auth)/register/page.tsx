@@ -46,7 +46,22 @@ const Register = () => {
 
   return (
     <main className="flex min-h-screen justify-center">
-      <div className="hidden md:flex items-center justify-center w-1/2 bg-green-500" />
+      <div className="hidden md:flex items-center justify-center w-1/2 bg-green-500">
+        <div className="w-[80%] h-[80%] bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+          <div className="relative w-full h-full bg-black rounded-xl p-6 flex items-center justify-center">
+            <div className="absolute top-6 left-6 text-green-500 text-4xl font-bold">
+              StreamIt
+            </div>
+
+            {/*    
+      <img
+        src="/a.png"
+        alt="Streaming"
+        className="max-w-[90%] object-contain"
+      /> */}
+          </div>
+        </div>
+      </div>
       <div className="md:w-1/2 flex items-center justify-center px-6">
         <section className="text-center flex flex-col gap-4 border border-green-500 p-8 rounded-lg shadow-md w-full max-w-md">
           <h1 className="text-3xl font-extrabold text-green-500">
@@ -106,12 +121,12 @@ const Register = () => {
             </div>
             <button
               disabled={registerMutation.isPending}
-              className="bg-green-600 p-4 rounded-full w-full font-bold text-white cursor-pointer hover:bg-green-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              className="bg-green-600 p-4 rounded-full w-full font-bold text-black hover:text-gray-300 cursor-pointer hover:bg-green-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {registerMutation.isPending ? "Registering..." : "Register"}
             </button>
           </form>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-400">
             Already have an account?{" "}
             <span className="underline cursor-pointer font-semibold text-green-500 hover:text-green-600 transition">
               <Link href="/login">Sign In</Link>
