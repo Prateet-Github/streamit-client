@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import AuthLeft from "@/components/sections/AuthLeft";
 
 const Register = () => {
   const router = useRouter();
@@ -26,114 +27,104 @@ const Register = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     registerMutation.mutate(form, {
       onSuccess: (data) => {
         localStorage.setItem("token", data.token);
-        console.log("Registered:", data);
         queryClient.setQueryData(["currentUser"], data.user);
-        toast.success("Registration successful! Redirecting...");
-        setTimeout(() => {
-          router.push("/");
-        }, 1000);
+        toast.success("Registration successful!");
+        setTimeout(() => router.push("/"), 1000);
       },
       onError: (err: any) => {
-        console.log("Error:", err.message);
         toast.error(err.response?.data?.message || "Registration failed");
       },
     });
   };
 
   return (
-    <main className="flex min-h-screen justify-center">
-      <div className="hidden md:flex items-center justify-center w-1/2 bg-green-500">
-        <div className="w-[80%] h-[80%] bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-          <div className="relative w-full h-full bg-black rounded-xl p-6 flex items-center justify-center">
-            <div className="absolute top-6 left-6 text-green-500 text-4xl font-bold">
-              StreamIt
-            </div>
+    <main className="flex min-h-screen bg-zinc-950 overflow-hidden">
+      <AuthLeft />
 
-            {/*    
-      <img
-        src="/a.png"
-        alt="Streaming"
-        className="max-w-[90%] object-contain"
-      /> */}
+      <section className="w-full md:w-1/2 flex items-center justify-center px-8 lg:px-24 py-12">
+        <div className="w-full max-w-md space-y-10">
+          <div>
+            <h1 className="text-4xl font-bold text-white tracking-tight mb-3">
+              Create an <span className="text-green-500">Account</span>
+            </h1>
+            <p className="text-zinc-400">
+              Want to be a creator? Join us now and start sharing.
+            </p>
           </div>
-        </div>
-      </div>
-      <div className="md:w-1/2 flex items-center justify-center px-6">
-        <section className="text-center flex flex-col gap-4 border border-green-500 p-8 rounded-lg shadow-md w-full max-w-md">
-          <h1 className="text-3xl font-extrabold text-green-500">
-            Create an account
-          </h1>
-          <p className="text-gray-400 text-sm">
-            Join StreamIt and start sharing videos with the world!
-          </p>
-          <form
-            className="flex flex-col gap-5 items-center"
-            onSubmit={handleSubmit}
-          >
-            <div className="relative w-full">
-              <AtSign className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 w-5 h-5" />
 
-              <input
-                type="text"
-                placeholder="Username"
-                className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
-                name="username"
-                onChange={handleChange}
-              />
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div className="relative group">
+                <AtSign className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={handleChange}
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500 transition-all outline-none"
+                />
+              </div>
+
+              <div className="relative group">
+                <UserRound className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Full Name"
+                  onChange={handleChange}
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500 transition-all outline-none"
+                />
+              </div>
+
+              <div className="relative group">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  onChange={handleChange}
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500 transition-all outline-none"
+                />
+              </div>
+
+              <div className="relative group">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500 transition-all outline-none"
+                />
+              </div>
             </div>
 
-            <div className="relative w-full">
-              <UserRound className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 w-5 h-5" />
-
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
-                name="name"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="relative w-full">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 w-5 h-5" />
-
-              <input
-                type="email"
-                placeholder="Email"
-                className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
-                name="email"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="relative w-full">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 w-5 h-5" />
-
-              <input
-                type="password"
-                placeholder="Password"
-                className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
-                name="password"
-                onChange={handleChange}
-              />
-            </div>
             <button
               disabled={registerMutation.isPending}
-              className="bg-green-600 p-4 rounded-full w-full font-bold text-black hover:text-gray-300 cursor-pointer hover:bg-green-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              className="group relative flex items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-black p-4 rounded-2xl w-full font-bold transition-all active:scale-[0.98] disabled:opacity-60 shadow-[0_10px_20px_-10px_rgba(34,197,94,0.4)]"
             >
-              {registerMutation.isPending ? "Registering..." : "Register"}
+              {registerMutation.isPending ? (
+                <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+              ) : (
+                "Create Account"
+              )}
             </button>
           </form>
-          <p className="text-sm text-gray-400">
+
+          <p className="text-center text-zinc-500 text-sm">
             Already have an account?{" "}
-            <span className="underline cursor-pointer font-semibold text-green-500 hover:text-green-600 transition">
-              <Link href="/login">Sign In</Link>
-            </span>
+            <Link
+              href="/login"
+              className="text-green-500 hover:text-green-600 underline font-semibold transition-colors"
+            >
+              Sign In
+            </Link>
           </p>
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
   );
 };

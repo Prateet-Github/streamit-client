@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import AuthLeft from "@/components/sections/AuthLeft";
 
 const Login = () => {
   const router = useRouter();
@@ -28,88 +29,85 @@ const Login = () => {
     loginMutation.mutate(form, {
       onSuccess: (data) => {
         localStorage.setItem("token", data.token);
-        console.log("Logged In:", data);
         queryClient.setQueryData(["currentUser"], data.user);
-        toast.success(`Welcome back, ${data.user.name}! Redirecting...`);
+        toast.success(`Welcome back, ${data.user.name}!`);
         setTimeout(() => {
           router.push("/");
         }, 1000);
       },
       onError: (err: any) => {
-        console.log("Error:", err.message);
         toast.error(err.response?.data?.message || "Login failed");
       },
     });
   };
 
   return (
-    <main className="flex min-h-screen justify-center">
-      <div className="hidden md:flex items-center justify-center w-1/2 bg-green-500">
-        <div className="w-[80%] h-[80%] bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-          <div className="relative w-full h-full bg-black rounded-xl p-6 flex items-center justify-center">
-            <div className="absolute top-6 left-6 text-green-500 text-4xl font-bold">
-              StreamIt
-            </div>
+    <main className="flex min-h-screen bg-zinc-950 overflow-hidden">
+      <AuthLeft />
 
-            {/*    
-      <img
-        src="/a.png"
-        alt="Streaming"
-        className="max-w-[90%] object-contain"
-      /> */}
+      <section className="w-full md:w-1/2 flex items-center justify-center px-8 lg:px-24 py-12">
+        <div className="w-full max-w-md space-y-10">
+          <div className="text-center md:text-left">
+            <h1 className="text-4xl font-bold text-white tracking-tight mb-3">
+              Welcome <span className="text-green-500">back</span>
+            </h1>
+            <p className="text-zinc-400">
+              Enter your details to pick up where you left off.
+            </p>
           </div>
-        </div>
-      </div>
 
-      <div className="flex items-center justify-center md:w-1/2 px-6">
-        <section className="text-center flex flex-col gap-4 border border-green-500  p-8 rounded-lg shadow-md w-full max-w-md">
-          <h1 className="text-3xl font-extrabold text-green-500">
-            Welcome back
-          </h1>
-          <p className="text-gray-400 text-sm">
-            Sign in to your account to continue enjoying StreamIt
-          </p>
-          <form
-            className="flex flex-col gap-5 items-center"
-            onSubmit={handleSubmit}
-          >
-            <div className="relative w-full">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 w-5 h-5" />
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div className="relative group">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  name="email"
+                  onChange={handleChange}
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500 transition-all outline-none"
+                  required
+                />
+              </div>
 
-              <input
-                type="email"
-                placeholder="Email"
-                className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
-                name="email"
-                onChange={handleChange}
-              />
+              <div className="relative group">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-600 transition-colors w-5 h-5" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={handleChange}
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500 transition-all outline-none"
+                  required
+                />
+              </div>
             </div>
-            <div className="relative w-full">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 w-5 h-5" />
 
-              <input
-                type="password"
-                placeholder="Password"
-                className="border border-green-500 p-4 pl-12 rounded-full w-full focus:outline-none focus:ring-2 focus:ring-green-500"
-                name="password"
-                onChange={handleChange}
-              />
-            </div>
             <button
               disabled={loginMutation.isPending}
-              className="bg-green-600 p-4 rounded-full w-full font-bold text-black hover:text-gray-300 cursor-pointer hover:bg-green-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              className="group relative flex items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-black p-4 rounded-2xl w-full font-bold transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loginMutation.isPending ? "Signing In..." : "Sign In"}
+              {loginMutation.isPending ? (
+                <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+              ) : (
+                <>
+                  <span>Sign In</span>
+                </>
+              )}
             </button>
           </form>
-          <p className="text-sm text-gray-400">
+
+          <p className="text-center text-zinc-500 text-sm">
             Don't have an account?{" "}
-            <span className="underline cursor-pointer font-semibold text-green-500 hover:text-green-600 transition">
-              <Link href="/register">Sign Up</Link>
-            </span>
+            <Link
+              href="/register"
+              className="text-green-500 hover:text-green-600 font-semibold underline "
+            >
+              Sign Up
+            </Link>
           </p>
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
   );
 };

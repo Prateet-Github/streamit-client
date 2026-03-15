@@ -4,7 +4,7 @@ const videos = [
   {
     id: "1",
     title: "Learn Next.js in 10 Minutes",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "Code Academy",
     views: 12000,
     createdAt: "2 days ago",
@@ -12,7 +12,7 @@ const videos = [
   {
     id: "2",
     title: "React Tutorial for Beginners",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "Dev Tutorials",
     views: 45000,
     createdAt: "1 week ago",
@@ -20,7 +20,7 @@ const videos = [
   {
     id: "3",
     title: "JavaScript ES6 Features Explained",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "JS Mastery",
     views: 30000,
     createdAt: "3 days ago",
@@ -28,7 +28,7 @@ const videos = [
   {
     id: "4",
     title: "CSS Flexbox Crash Course",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "Design Hub",
     views: 15000,
     createdAt: "5 days ago",
@@ -36,7 +36,7 @@ const videos = [
   {
     id: "5",
     title: "TypeScript for Beginners",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "Code Academy",
     views: 22000,
     createdAt: "1 week ago",
@@ -44,7 +44,7 @@ const videos = [
   {
     id: "6",
     title: "Building a REST API with Node.js",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "Dev Tutorials",
     views: 35000,
     createdAt: "4 days ago",
@@ -52,7 +52,7 @@ const videos = [
   {
     id: "7",
     title: "Understanding React Hooks",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "JS Mastery",
     views: 40000,
     createdAt: "2 days ago",
@@ -60,7 +60,7 @@ const videos = [
   {
     id: "8",
     title: "CSS Grid Layout Tutorial",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "Design Hub",
     views: 18000,
     createdAt: "6 days ago",
@@ -68,7 +68,7 @@ const videos = [
   {
     id: "9",
     title: "Next.js vs Gatsby: Which One to Choose?",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "Code Academy",
     views: 27000,
     createdAt: "3 days ago",
@@ -76,7 +76,7 @@ const videos = [
   {
     id: "10",
     title: "Advanced JavaScript Concepts",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "Dev Tutorials",
     views: 32000,
     createdAt: "1 week ago",
@@ -84,7 +84,7 @@ const videos = [
   {
     id: "11",
     title: "React Performance Optimization Tips",
-    thumbnail: "/video.png",
+    thumbnail: "/image.png",
     channelName: "JS Mastery",
     views: 45000,
     createdAt: "2 days ago",
