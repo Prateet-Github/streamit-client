@@ -49,7 +49,7 @@ const Login = () => {
         <div className="w-full max-w-md space-y-10">
           <div className="text-center md:text-left">
             <h1 className="text-4xl font-bold text-white tracking-tight mb-3">
-              Welcome <span className="text-green-500">back</span>
+              Welcome <span className="text-emerald-400">back</span>
             </h1>
             <p className="text-zinc-400">
               Enter your details to pick up where you left off.
@@ -59,25 +59,25 @@ const Login = () => {
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-emerald-400 transition-colors w-5 h-5" />
                 <input
                   type="email"
                   placeholder="Email Address"
                   name="email"
                   onChange={handleChange}
-                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500 transition-all outline-none"
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-400  transition-all outline-none"
                   required
                 />
               </div>
 
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-600 transition-colors w-5 h-5" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-emerald-400 transition-colors w-5 h-5" />
                 <input
                   type="password"
                   placeholder="Password"
                   name="password"
                   onChange={handleChange}
-                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500 transition-all outline-none"
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all outline-none"
                   required
                 />
               </div>
@@ -85,7 +85,7 @@ const Login = () => {
 
             <button
               disabled={loginMutation.isPending}
-              className="group relative flex items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-black p-4 rounded-2xl w-full font-bold transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+              className="group relative flex items-center justify-center gap-3 bg-emerald-500 hover:bg-emerald-400 text-black p-4 rounded-2xl w-full font-bold transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loginMutation.isPending ? (
                 <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -101,7 +101,7 @@ const Login = () => {
             Don't have an account?{" "}
             <Link
               href="/register"
-              className="text-green-500 hover:text-green-600 font-semibold underline "
+              className="text-emerald-400 hover:text-emerald-300 font-semibold underline transition-colors"
             >
               Sign Up
             </Link>
