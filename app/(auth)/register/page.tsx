@@ -48,7 +48,7 @@ const Register = () => {
         <div className="w-full max-w-md space-y-10">
           <div>
             <h1 className="text-4xl font-bold text-white tracking-tight mb-3">
-              Create an <span className="text-emerald-400">Account</span>
+              Create an <span className="text-green-400">Account</span>
             </h1>
             <p className="text-zinc-400">
               Want to be a creator? Join us now and start sharing.
@@ -62,49 +62,53 @@ const Register = () => {
                 <input
                   type="text"
                   name="username"
+                  value={form.username}
                   placeholder="Username"
                   onChange={handleChange}
-                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all outline-none"
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all outline-none"
                 />
               </div>
 
               <div className="relative group">
-                <UserRound className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-emerald-400 transition-colors w-5 h-5" />
+                <UserRound className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
                 <input
                   type="text"
                   name="name"
+                  value={form.name}
                   placeholder="Full Name"
                   onChange={handleChange}
-                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all outline-none"
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all outline-none"
                 />
               </div>
 
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-emerald-400 transition-colors w-5 h-5" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
                 <input
                   type="email"
                   name="email"
+                  value={form.email}
                   placeholder="Email Address"
                   onChange={handleChange}
-                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all outline-none"
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all outline-none"
                 />
               </div>
 
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-emerald-400 transition-colors w-5 h-5" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:text-green-500 transition-colors w-5 h-5" />
                 <input
                   type="password"
                   name="password"
+                  value={form.password}
                   placeholder="Password"
                   onChange={handleChange}
-                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all outline-none"
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 pl-12 rounded-2xl w-full text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all outline-none"
                 />
               </div>
             </div>
 
             <button
               disabled={registerMutation.isPending}
-              className="group relative flex items-center justify-center gap-3 bg-emerald-500 hover:bg-emerald-400 text-black p-4 rounded-2xl w-full font-bold transition-all active:scale-[0.98] disabled:opacity-60 shadow-[0_10px_20px_-10px_rgba(34,197,94,0.4)]"
+              className="group relative flex items-center justify-center gap-3 bg-green-500 hover:bg-green-400 text-black p-4 rounded-2xl w-full font-bold transition-all active:scale-[0.98] disabled:opacity-60 shadow-[0_10px_20px_-10px_rgba(34,197,94,0.4)]"
             >
               {registerMutation.isPending ? (
                 <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
@@ -118,7 +122,7 @@ const Register = () => {
             Already have an account?{" "}
             <Link
               href="/login"
-              className="text-emerald-400 hover:text-emerald-300 underline font-semibold transition-colors"
+              className="text-green-400 hover:text-green-300 underline font-semibold transition-colors"
             >
               Sign In
             </Link>
