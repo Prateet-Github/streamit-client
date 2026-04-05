@@ -45,27 +45,29 @@ export default function VideoCard({
       </div>
 
       {/* Info */}
-      <div className="flex gap-3">
-        <div className="w-9 h-9 rounded-full overflow-hidden">
-          <Image
-            src={avatar || "/pfp.jpg"}
-            alt={channelName}
-            width={36}
-            height={36}
-            className="object-cover"
-          />
-        </div>
+   <div className="flex gap-3">
+  <div className="w-9 h-9 rounded-full overflow-hidden">
+    <Image
+      src={avatar || "/pfp.jpg"}
+      alt={channelName}
+      width={36}
+      height={36}
+      className="object-cover"
+    />
+  </div>
 
-        <div className="flex flex-col">
-          <h3 className="text-sm font-semibold line-clamp-2">{title}</h3>
+  <div className="flex flex-col min-w-0">
+    <h3 className="text-sm font-semibold line-clamp-2 wrap-break-word">
+      {title}
+    </h3>
 
-          <p className="text-sm text-gray-400">{channelName}</p>
+    <p className="text-sm text-gray-400">{channelName}</p>
 
-          <p className="text-xs text-gray-500">
-            {views.toLocaleString()} views • {formatDate(createdAt)}
-          </p>
-        </div>
-      </div>
+    <p className="text-xs text-gray-500">
+      {views.toLocaleString()} views • {formatDate(createdAt)}
+    </p>
+  </div>
+</div>
     </Link>
   );
 }

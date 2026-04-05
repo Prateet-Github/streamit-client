@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, Users, History, Upload } from "lucide-react";
+import { Home, Upload, Video, User } from "lucide-react";
 
 type SidebarProps = {
   isSidebarOpen: boolean;
@@ -7,9 +7,10 @@ type SidebarProps = {
 
 const items = [
   { label: "Home", icon: Home, href: "/" },
-  { label: "Subscriptions", icon: Users, href: "/subscriptions" },
   { label: "Upload Video", icon: Upload, href: "/upload-video" },
-  { label: "History", icon: History, href: "/history" },
+  { label: "Dashboard", icon: Video, href: "/dashboard" },
+
+  { label: "Profile", icon: User, href: "/profile" },
 ];
 
 export default function Sidebar({ isSidebarOpen }: SidebarProps) {

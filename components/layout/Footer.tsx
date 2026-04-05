@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -30,23 +30,26 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/explore"
+                  href="/upload-video"
                   className="hover:text-green-500 transition"
                 >
-                  Explore
+                  Upload Video
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/upload"
+                  href="/dashboard"
                   className="hover:text-green-500 transition"
                 >
-                  Upload
+                  Dashboard
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-green-500 transition">
-                  About
+                <Link
+                  href="/profile"
+                  className="hover:text-green-500 transition"
+                >
+                  Profile
                 </Link>
               </li>
             </ul>
@@ -73,12 +76,21 @@ const Footer = () => {
                 <Twitter size={20} />
               </a>
               <a
-                href="www.linkedin.com/in/prateet-tiwari"
+                href="https://www.linkedin.com/in/prateet-tiwari"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-green-500 transition"
               >
                 <Linkedin size={20} />
+              </a>
+
+              <a
+                href="mailto:prateettiwari29@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-green-500 transition"
+              >
+                <Mail size={20} />
               </a>
             </div>
           </div>
