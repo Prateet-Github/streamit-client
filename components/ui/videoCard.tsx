@@ -14,7 +14,7 @@ export default function VideoCard({
   return (
     <Link
       href={`/video/${id}`}
-      className="flex flex-col gap-3 md:hover:scale-102 transition-transform duration-300"
+      className="flex flex-col gap-3 md:hover:scale-102 transition-transform duration-300 bg-[#0d0d0d] text-white"
     >
       {/* Thumbnail */}
       <div className="relative w-full aspect-video overflow-hidden md:rounded-2xl">

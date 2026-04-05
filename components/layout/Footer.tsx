@@ -6,7 +6,7 @@ import { NavItems as items } from "@/data/navItems";
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-[#0d0d0d]">
+    <footer className="dark:bg-[#0d0d0d]  border-t border-white/5">
       <div className="px-6 py-12">
         {/* Top Section */}
         <div className="grid md:grid-cols-3 gap-10">

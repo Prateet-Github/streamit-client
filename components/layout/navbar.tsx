@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProfileDropdown from "./ProfileDropdown";
 import useClickOutside from "@/hooks/useClickOutside";
-import { Search, Menu, X, Home, User, LayoutDashboard } from "lucide-react";
+import { Search, Menu, X, Home } from "lucide-react";
 import { useCurrentUser } from "@/queries/auth";
 import { usePathname } from "next/navigation";
 import { NavItems as items } from "@/data/navItems";

@@ -42,7 +42,7 @@ const Login = () => {
   };
 
   return (
-    <main className="flex min-h-screen bg-zinc-950 overflow-hidden">
+    <main className="flex min-h-screen bg-[#0d0d0d] overflow-hidden">
       <AuthLeft />
 
       <section className="w-full md:w-1/2 flex items-center justify-center px-8 lg:px-24 py-12">

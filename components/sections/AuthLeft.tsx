@@ -2,7 +2,7 @@ const AuthLeft = () => {
   return (
     <section className="hidden md:flex relative items-center justify-center w-1/2 bg-green-500 overflow-hidden">
       <div className="z-10 w-[85%] h-[85%] max-h-175 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[40px] p-1 shadow-2xl overflow-hidden">
-        <div className="relative w-full h-full bg-zinc-950/90 rounded-[36px] flex flex-col p-12">
+        <div className="relative w-full h-full bg-[#0d0d0d] rounded-[36px] flex flex-col p-12">
           <div className="flex items-center gap-4 text-green-400 text-4xl font-black tracking-tighter">
             <div className="flex items-center justify-center w-12 h-12 bg-green-500 rounded-2xl  transition-transform hover:scale-110 cursor-pointer">
               <div className="w-0 h-0 border-y-10 border-y-transparent border-l-15 border-l-black ml-1"></div>

@@ -2,7 +2,7 @@ import VideoCard from "@/components/ui/videoCard";
 import { Video } from "@/types/video";
 
 async function getVideos(): Promise<Video[]> {
-  const res = await fetch("http://localhost:5001/api/video", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/video`, {
     cache: "no-store",
   });
 
@@ -23,7 +23,7 @@ export default async function Home() {
             id={video._id}
             title={video.title}
             thumbnail={`${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.thumbnailKey}`}
-            channelName={video.owner?.name || "Unknown Channel"}
+            channelName={video.owner?.name || "New Channel"}
             views={video.views || 0}
             createdAt={video.createdAt}
           />
