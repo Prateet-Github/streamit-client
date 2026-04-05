@@ -46,8 +46,8 @@ export default function Navbar({
               <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-black">
                 <Home size={18} fill="black" />
               </div>
-              <span className="hidden xs:block">
-                Stream<span className="text-green-500">It</span>
+              <span className="hidden sm:inline-block text-green-500">
+                StreamIt
               </span>
             </Link>
           </div>
