@@ -37,7 +37,14 @@ export default function ProfileDropdown({
       <div className="p-6 bg-white/2 border-b border-white/5">
         <div className="flex items-center gap-4">
           <div className="relative h-12 w-12 rounded-full overflow-hidden border border-green-500/20">
-            <Image src="/pfp.jpg" alt="profile" fill className="object-cover" />
+            <Image
+              src="/pfp.jpg"
+              alt="profile"
+              fill
+              className="object-cover"
+              sizes="128px"
+              priority
+            />
           </div>
           <div className="flex flex-col min-w-0">
             <p className="text-sm font-bold text-white truncate">

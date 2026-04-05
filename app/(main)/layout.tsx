@@ -10,7 +10,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen overflow-hidden bg-[#0d0d0d]">
       <Navbar
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
@@ -18,7 +18,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <div className="flex flex-1 overflow-hidden">
         <Sidebar isSidebarOpen={isSidebarOpen} />
         <main className="flex-1 overflow-y-auto flex flex-col">
-          <div className="flex-1 bg-black p-4">{children}</div>
+          <div className="flex-1 md:p-4">{children}</div>
           <Footer />
         </main>
       </div>

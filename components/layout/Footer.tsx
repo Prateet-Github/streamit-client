@@ -5,7 +5,7 @@ import { Github, Twitter, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-black">
+    <footer className="bg-white dark:bg-[#0d0d0d]">
       <div className="px-6 py-12">
         {/* Top Section */}
         <div className="grid md:grid-cols-3 gap-10">

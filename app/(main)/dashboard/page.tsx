@@ -55,7 +55,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <header className="flex justify-between items-center mb-12 max-w-7xl mx-auto">
+      <header className="flex justify-between items-center mb-12">
         <div>
           <h1 className="text-4xl font-bold text-white tracking-tighter">
             Your <span className="text-green-500 font-mono">Studio</span>
@@ -77,7 +77,7 @@ export default function Dashboard() {
       </header>
 
       {/* Content */}
-      <section className="max-w-7xl mx-auto">
+      <section>
         {isLoading ? (
           <div className="h-[40vh] flex flex-col items-center justify-center gap-4">
             <Loader2 className="animate-spin text-green-500" size={32} />

@@ -28,7 +28,7 @@ export default function Navbar({
   return (
     <>
       {/* TOP NAVBAR */}
-      <header className="sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 text-white">
+      <header className="sticky top-0 bg-[#0d0d0d] z-50 backdrop-blur-md border-b border-white/5 text-white">
         <nav className="flex items-center justify-between px-3 py-3 max-w-360 mx-auto">
           {/* LEFT: Logo & Menu */}
           <div className="flex items-center gap-2 md:gap-4">
@@ -81,6 +81,8 @@ export default function Navbar({
                     width={36}
                     height={36}
                     className="rounded-full"
+                    priority
+                    sizes="128px"
                   />
                 </div>
 

@@ -4,10 +4,12 @@ import Image from "next/image";
 import { Settings, Edit3, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import api from "@/services/api";
+import { formatDate } from "@/utils/time";
 
 type User = {
   name: string;
   username: string;
+  createdAt: string;
 };
 
 const Profile = () => {
@@ -28,7 +30,7 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center gap-4 text-slate-500 font-mono text-xs uppercase tracking-widest">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-slate-500 font-mono text-xs uppercase tracking-widest">
         <Loader2 className="animate-spin text-green-500" size={24} />
         Syncing Profile...
       </div>
@@ -36,24 +38,22 @@ const Profile = () => {
   }
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-slate-200 p-4 md:p-12">
-      <div className="max-w-5xl mx-auto">
+    <main className="min-h-screen text-slate-200">
+      <div className="">
         {/* Header Card */}
         <section className="bg-[#0d0d0d] border border-white/5 rounded-4xl md:rounded-[3rem] p-6 md:p-12 overflow-hidden shadow-2xl">
-          {/* Subtle Accent Glows */}
-
-          <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-green-500/5 blur-[100px] rounded-full pointer-events-none" />
-
           <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10">
             {/* Avatar Container */}
             <div className="shrink-0">
-              <div className="relative h-28 w-28 md:h-36 md:w-36 rounded-full p-1 border-2 border-green-500/20 shadow-[0_0_40px_rgba(34,197,94,0.1)]">
+              <div className="relative h-28 w-28 md:h-36 md:w-36 rounded-full p-1 border-2 border-green-500/20">
                 <div className="relative h-full w-full rounded-full overflow-hidden">
                   <Image
                     src="/pfp.jpg"
                     alt="Profile"
                     fill
                     className="object-cover"
+                    sizes="128px"
+                    priority
                   />
                 </div>
               </div>
@@ -107,7 +107,9 @@ const Profile = () => {
               <p className="text-[10px] font-mono text-slate-600 uppercase tracking-widest">
                 Joined
               </p>
-              <p className="text-xl font-bold text-white">2026</p>
+              <p className="text-xl font-bold text-white">
+                {formatDate(user.createdAt)}
+              </p>
             </div>
           </div>
         </section>

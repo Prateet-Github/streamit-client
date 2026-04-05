@@ -26,8 +26,8 @@ export default async function Home() {
   const videos = await getVideos();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto grid gap-x-6 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+    <div className="min-h-screen">
+      <div className="grid gap-x-6 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {videos.map((video) => (
           <VideoCard
             key={video._id}

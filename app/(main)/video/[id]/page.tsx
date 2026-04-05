@@ -61,6 +61,8 @@ export default async function VideoPage({
                     alt={video.owner?.name || "Channel"}
                     fill
                     className="object-cover"
+                    sizes="128px"
+                    priority
                   />
                 </div>
                 <div>
