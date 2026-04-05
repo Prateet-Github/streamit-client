@@ -1,14 +1,18 @@
 "use client";
+
 import { useState } from "react";
 import axios from "axios";
 import { useGetUrl } from "@/queries/video-url";
+import { useRouter } from "next/navigation";
+import api from "@/services/api";
 
 const UploadVideo = () => {
+  const router = useRouter();
+
   const [file, setFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [isUploading, setIsUploading] = useState(false);
 
-  // tracking the input's life cycle to reset it after upload
   const [inputKey, setInputKey] = useState(Date.now());
 
   const { mutateAsync: getPresignedUrl, isPending: isGettingUrl } = useGetUrl();
@@ -26,8 +30,10 @@ const UploadVideo = () => {
       setIsUploading(true);
       setUploadProgress(0);
 
+      // 1. Get presigned URL
       const { uploadUrl, key } = await getPresignedUrl(file);
 
+      // 2. Upload to S3 (use axios directly)
       await axios.put(uploadUrl, file, {
         headers: { "Content-Type": file.type },
         onUploadProgress: (p) => {
@@ -36,7 +42,17 @@ const UploadVideo = () => {
         },
       });
 
-      alert("Upload successful!");
+      // 3. Notify backend (use api helper → adds auth automatically)
+      const res = await api.post("/video/confirm-upload", {
+        title: file.name,
+        description: "Uploaded video",
+        s3Key: key,
+      });
+
+      // 4. Redirect to dashboard (better UX)
+      router.push("/dashboard");
+
+      alert("Upload successful & processing started!");
 
       setFile(null);
       setUploadProgress(0);
@@ -73,14 +89,18 @@ const UploadVideo = () => {
 
         <button
           onClick={handleUpload}
-          disabled={!file || isUploading}
+          disabled={!file || isUploading || isGettingUrl}
           className={`w-full p-4 rounded-2xl font-bold transition-all ${
             !file || isUploading
               ? "bg-gray-600"
               : "bg-blue-600 hover:bg-blue-500"
           }`}
         >
-          {isUploading ? `Uploading ${uploadProgress}%` : "Start Upload"}
+          {isUploading
+            ? `Uploading ${uploadProgress}%`
+            : isGettingUrl
+              ? "Preparing upload..."
+              : "Start Upload"}
         </button>
       </div>
     </main>

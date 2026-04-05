@@ -18,7 +18,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       <div className="flex flex-1 overflow-hidden">
         <Sidebar isSidebarOpen={isSidebarOpen} />
         <main className="flex-1 overflow-y-auto flex flex-col">
-          <div className="flex-1 p-4">{children}</div>
+          <div className="flex-1 p-4 min-h-screen">{children}</div>
           <Footer />
         </main>
       </div>

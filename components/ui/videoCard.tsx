@@ -32,6 +32,10 @@ export default function VideoCard({
           src={thumbnail}
           alt={title}
           fill
+          sizes="(max-width: 640px) 100vw,
+         (max-width: 768px) 50vw,
+         (max-width: 1024px) 33vw,
+         25vw"
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
 
@@ -53,9 +57,7 @@ export default function VideoCard({
         </div>
 
         <div className="flex flex-col">
-          <h3 className="text-sm font-semibold line-clamp-2">
-            {title}
-          </h3>
+          <h3 className="text-sm font-semibold line-clamp-2">{title}</h3>
 
           <p className="text-sm text-gray-400">{channelName}</p>
 
