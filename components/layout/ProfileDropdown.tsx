@@ -37,7 +37,7 @@ export default function ProfileDropdown({
   }
 
   return (
-    <div className="absolute right-0 top-12 w-72 p-4 bg-black border border-green-500 rounded-lg shadow-lg flex flex-col gap-4">
+    <div className="absolute right-0 top-12 w-72 p-4 bg-black  rounded-lg shadow-lg flex flex-col gap-4">
       {/* User Info */}
       <div className="flex flex-col items-center gap-2">
         <Image
@@ -45,7 +45,7 @@ export default function ProfileDropdown({
           alt="profile"
           width={40}
           height={40}
-          className="rounded-full border-2 border-green-500 hover:scale-105 transition cursor-pointer"
+          className="rounded-full hover:scale-105 transition cursor-pointer"
         />
 
         <p className="font-medium text-white">{currentUser?.username}</p>

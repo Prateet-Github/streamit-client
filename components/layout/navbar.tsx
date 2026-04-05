@@ -25,7 +25,7 @@ export default function Navbar({
   useClickOutside(profileRef, () => setIsProfileOpen(false));
 
   return (
-    <header className="sticky top-0 z-50  text-black dark:text-white bg-white dark:bg-black border border-green-500">
+    <header className="sticky top-0 z-50  text-black dark:text-white bg-white dark:bg-black">
       <nav className="flex items-center justify-between px-4 py-3 ">
         {/* LEFT */}
         <div className="flex items-center gap-3">
@@ -36,7 +36,7 @@ export default function Navbar({
             {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          <Link href="/" className="font-extrabold text-4xl text-green-500">
+          <Link href="/" className="font-extrabold text-2xl text-green-500">
             StreamIt
           </Link>
         </div>
@@ -44,7 +44,7 @@ export default function Navbar({
         {/* SEARCH */}
         <div className="relative w-40 md:w-96">
           <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-green-500"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
             size={18}
           />
 
@@ -52,7 +52,7 @@ export default function Navbar({
             type="text"
             placeholder="Search"
             aria-label="Search videos"
-            className="border  border-green-500 px-4 py-2 pl-10 rounded-full w-full bg-transparent outline-none"
+            className="border border-gray-400 px-4 py-2 pl-10 rounded-full w-full bg-transparent outline-none"
           />
         </div>
 
@@ -66,7 +66,7 @@ export default function Navbar({
               alt="profile"
               width={40}
               height={40}
-              className="rounded-full border-2 border-green-500 cursor-pointer"
+              className="rounded-full  cursor-pointer"
               onClick={() => setIsProfileOpen((prev) => !prev)}
             />
 
