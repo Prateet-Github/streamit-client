@@ -11,6 +11,10 @@ type VideoCardProps = {
   avatar?: string;
 };
 
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString();
+}
+
 export default function VideoCard({
   id,
   title,
@@ -18,9 +22,10 @@ export default function VideoCard({
   channelName,
   views,
   createdAt,
+  avatar,
 }: VideoCardProps) {
   return (
-    <Link href={`/watch/${id}`} className="flex flex-col gap-2 group">
+    <Link href={`/video/${id}`} className="flex flex-col gap-2 group">
       {/* Thumbnail */}
       <div className="relative w-full aspect-video overflow-hidden rounded-lg">
         <Image
@@ -30,7 +35,6 @@ export default function VideoCard({
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
 
-        {/* Duration badge */}
         <span className="absolute bottom-2 right-2 bg-black/80 text-xs px-2 py-1 rounded">
           10:25
         </span>
@@ -38,10 +42,9 @@ export default function VideoCard({
 
       {/* Info */}
       <div className="flex gap-3">
-        {/* Avatar */}
         <div className="w-9 h-9 rounded-full overflow-hidden">
           <Image
-            src="/pfp.jpg"
+            src={avatar || "/pfp.jpg"}
             alt={channelName}
             width={36}
             height={36}
@@ -49,14 +52,15 @@ export default function VideoCard({
           />
         </div>
 
-        {/* Text */}
         <div className="flex flex-col">
-          <h3 className="text-sm font-semibold line-clamp-2">{title}</h3>
+          <h3 className="text-sm font-semibold line-clamp-2">
+            {title}
+          </h3>
 
           <p className="text-sm text-gray-400">{channelName}</p>
 
           <p className="text-xs text-gray-500">
-            {views} views • {createdAt}
+            {views.toLocaleString()} views • {formatDate(createdAt)}
           </p>
         </div>
       </div>
