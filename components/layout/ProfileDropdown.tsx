@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useCurrentUser } from "@/queries/auth";
 import { User, Upload, Settings, LogOut } from "lucide-react";
 import useLogout from "@/hooks/useLogout";
+import Link from "next/link";
 
 type ProfileDropdownProps = {
   closeDropdown: () => void;
@@ -17,14 +18,17 @@ export default function ProfileDropdown({
     {
       icon: User,
       label: "Profile",
+      href: "/profile",
     },
     {
       icon: Upload,
       label: "Upload Video",
+      href: "/dashboard",
     },
     {
       icon: Settings,
       label: "Settings",
+      href: "/settings",
     },
   ];
 
@@ -53,15 +57,16 @@ export default function ProfileDropdown({
 
       {/* Menu Items */}
       <div className="flex flex-col gap-1 border-y border-green-500/40 py-3">
-        {menuItems.map(({ icon: Icon, label }) => (
-          <button
+        {menuItems.map(({ icon: Icon, label, href }) => (
+          <Link
             key={label}
+            href={href}
             onClick={closeDropdown}
             className="flex items-center gap-3 w-full text-left p-2 rounded hover:bg-white/10 hover:text-green-400 transition"
           >
             <Icon size={18} />
             {label}
-          </button>
+          </Link>
         ))}
       </div>
 

@@ -5,7 +5,7 @@ import axios from "axios";
 import { useGetUrl } from "@/queries/video-url";
 import { useRouter } from "next/navigation";
 import api from "@/services/api";
-import { Upload, Loader2, Play, Info, X } from "lucide-react";
+import { Upload, Play, Info, X } from "lucide-react";
 
 interface UploadModalProps {
   isOpen: boolean;
