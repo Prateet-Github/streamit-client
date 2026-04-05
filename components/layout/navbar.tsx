@@ -8,6 +8,7 @@ import useClickOutside from "@/hooks/useClickOutside";
 import { Search, Menu, X, Home, User, LayoutDashboard } from "lucide-react";
 import { useCurrentUser } from "@/queries/auth";
 import { usePathname } from "next/navigation";
+import { NavItems as items } from "@/data/navItems";
 
 type NavbarProps = {
   isSidebarOpen: boolean;
@@ -52,7 +53,7 @@ export default function Navbar({
             </Link>
           </div>
 
-          {/* SEARCH: Centered & Sleek */}
+          {/* SEARCH */}
           <div className="relative flex-1 max-w-md mx-4 group">
             <Search
               className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-green-500 transition-colors"
@@ -115,24 +116,15 @@ export default function Navbar({
       {/* MOBILE BOTTOM NAV */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0d0d0d]/90 backdrop-blur-xl border-t border-white/5 px-4 py-3">
         <div className="grid grid-cols-3 items-center">
-          <MobileNavItem
-            href="/"
-            icon={Home}
-            label="Home"
-            active={pathname === "/"}
-          />
-          <MobileNavItem
-            href="/dashboard"
-            icon={LayoutDashboard}
-            label="dashboard"
-            active={pathname === "/dashboard"}
-          />
-          <MobileNavItem
-            href="/profile"
-            icon={User}
-            label="Profile"
-            active={pathname === "/profile"}
-          />
+          {items.map(({ label, icon: Icon, href }) => (
+            <MobileNavItem
+              key={label}
+              href={href}
+              icon={Icon}
+              label={label}
+              active={pathname === href}
+            />
+          ))}
         </div>
       </div>
     </>

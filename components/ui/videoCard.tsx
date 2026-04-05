@@ -1,23 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatTime } from "@/utils/time";
-
-type VideoCardProps = {
-  id: string;
-  title: string;
-  thumbnail: string;
-  channelName: string;
-  views: number;
-  createdAt: string;
-  avatar?: string;
-};
+import { VideoCardProps } from "@/types/video";
 
 export default function VideoCard({
   id,
   title,
   thumbnail,
   channelName,
-  views,
   createdAt,
   avatar,
 }: VideoCardProps) {

@@ -1,15 +1,9 @@
 import Link from "next/link";
-import { Home, Video, User } from "lucide-react";
+import { NavItems as items } from "@/data/navItems";
 
 type SidebarProps = {
   isSidebarOpen: boolean;
 };
-
-const items = [
-  { label: "Home", icon: Home, href: "/" },
-  { label: "Dashboard", icon: Video, href: "/dashboard" },
-  { label: "Profile", icon: User, href: "/profile" },
-];
 
 export default function Sidebar({ isSidebarOpen }: SidebarProps) {
   return (

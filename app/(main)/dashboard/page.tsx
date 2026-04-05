@@ -5,20 +5,7 @@ import { Plus, Loader2, PlayCircle } from "lucide-react";
 import UploadModal from "@/components/modals/UploadModal";
 import VideoCard from "@/components/ui/videoCard";
 import api from "@/services/api";
-
-type Video = {
-  _id: string;
-  title: string;
-  thumbnailKey: string;
-  createdAt: string;
-  views?: number;
-  status: "PROCESSING" | "COMPLETED" | "FAILED";
-  processingProgress?: number;
-  owner?: {
-    id: string;
-    name: string;
-  };
-};
+import { Video } from "@/types/video";
 
 export default function Dashboard() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);

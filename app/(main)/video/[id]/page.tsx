@@ -7,16 +7,7 @@ import {
   CheckCircle2,
   Play,
 } from "lucide-react";
-
-type Video = {
-  hlsUrl: string;
-  title: string;
-  description: string;
-  owner?: {
-    name: string;
-    username: string;
-  };
-};
+import { Video } from "@/types/video";
 
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`http://localhost:5001/api/video/${id}`, {

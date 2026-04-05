@@ -1,16 +1,5 @@
 import VideoCard from "@/components/ui/videoCard";
-
-type Video = {
-  _id: string;
-  title: string;
-  thumbnailKey: string;
-  createdAt: string;
-  views: number;
-  owner?: {
-    id: string;
-    name: string;
-  };
-};
+import { Video } from "@/types/video";
 
 async function getVideos(): Promise<Video[]> {
   const res = await fetch("http://localhost:5001/api/video", {

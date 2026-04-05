@@ -5,12 +5,7 @@ import { Settings, Edit3, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import api from "@/services/api";
 import { formatDate } from "@/utils/time";
-
-type User = {
-  name: string;
-  username: string;
-  createdAt: string;
-};
+import { User } from "@/types/user";
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
