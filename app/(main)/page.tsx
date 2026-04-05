@@ -26,18 +26,20 @@ export default async function Home() {
   const videos = await getVideos();
 
   return (
-    <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 min-h-screen mx-auto">
-      {videos.map((video) => (
-        <VideoCard
-          key={video._id}
-          id={video._id}
-          title={video.title}
-          thumbnail={`${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.thumbnailKey}`}
-          channelName={video.owner?.name || "Unknown Channel"}
-          views={video.views || 0}
-          createdAt={video.createdAt}
-        />
-      ))}
+    <div className="min-h-screen bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto grid gap-x-6 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+        {videos.map((video) => (
+          <VideoCard
+            key={video._id}
+            id={video._id}
+            title={video.title}
+            thumbnail={`${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.thumbnailKey}`}
+            channelName={video.owner?.name || "Unknown Channel"}
+            views={video.views || 0}
+            createdAt={video.createdAt}
+          />
+        ))}
+      </div>
     </div>
   );
 }

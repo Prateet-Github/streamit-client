@@ -67,10 +67,10 @@ export default function Dashboard() {
 
         <button
           onClick={() => setIsUploadOpen(true)}
-          className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black px-8 py-4 rounded-2xl font-bold transition-all active:scale-95 shadow-[0_0_30px_rgba(34,197,94,0.15)]"
+          className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black px-4 py-3 rounded-2xl font-bold transition-all active:scale-95 shadow-[0_0_30px_rgba(34,197,94,0.15)]"
         >
           <Plus size={20} strokeWidth={3} />
-          <span className="text-sm uppercase tracking-tight">New Upload</span>
+          <span className="text-sm uppercase tracking-tight hidden md:flex">New Upload</span>
         </button>
       </header>
 
