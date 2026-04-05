@@ -7,9 +7,7 @@ type SidebarProps = {
 
 const items = [
   { label: "Home", icon: Home, href: "/" },
-  { label: "Upload Video", icon: Upload, href: "/upload-video" },
   { label: "Dashboard", icon: Video, href: "/dashboard" },
-
   { label: "Profile", icon: User, href: "/profile" },
 ];
 

@@ -3,6 +3,7 @@ import VideoPlayer from "@/components/ui/VideoPlayer";
 type Video = {
   hlsUrl: string;
   title: string;
+  description: string;
 };
 
 async function getVideo(id: string): Promise<Video> {
@@ -26,8 +27,14 @@ export default async function VideoPage({
   const video = await getVideo(id);
 
   return (
-    <div className="w-full aspect-video bg-black rounded-xl overflow-hidden">
-      <VideoPlayer src={video.hlsUrl} />
-    </div>
+    <>
+      <div className="w-full aspect-video bg-black rounded-xl overflow-hidden">
+        <VideoPlayer src={video.hlsUrl} />
+      </div>
+      <div>
+        <h1 className="text-2xl font-bold mb-6 text-center">{video.title}</h1>
+        <p className="text-gray-400 text-center">{video.description}</p>
+      </div>
+    </>
   );
 }
