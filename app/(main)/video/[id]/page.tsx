@@ -1,13 +1,8 @@
 import VideoPlayer from "@/components/ui/VideoPlayer";
 import Image from "next/image";
-import {
-  ThumbsUp,
-  Share2,
-  MoreHorizontal,
-  CheckCircle2,
-  Play,
-} from "lucide-react";
+import { ThumbsUp, Share2, MoreHorizontal, CheckCircle2 } from "lucide-react";
 import { Video } from "@/types/video";
+import UpNext from "@/components/sections/UpNext";
 
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`http://localhost:5001/api/video/${id}`, {
@@ -29,7 +24,7 @@ export default async function VideoPage({
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-slate-200 p-4 lg:p-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* LEFT COLUMN: Player & Metadata */}
         <div className="lg:col-span-2 space-y-6">
           {/* Video Player */}
@@ -107,42 +102,7 @@ export default async function VideoPage({
         </div>
 
         {/* RIGHT COLUMN: Sidebar (Up Next) */}
-        <aside className="space-y-6">
-          <div className="flex items-center justify-between px-1">
-            <h3 className="text-[10px] font-mono uppercase tracking-[0.3em] text-slate-500">
-              Up Next
-            </h3>
-            <span className="text-[10px] font-mono text-green-500 uppercase tracking-widest">
-              Autoplay On
-            </span>
-          </div>
-
-          <div className="space-y-5">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex gap-3 group cursor-pointer group">
-                {/* Small Thumbnail Preview */}
-                <div className="relative w-40 aspect-video bg-white/5 rounded-2xl overflow-hidden shrink-0 border border-white/5">
-                  <div className="absolute inset-0 bg-green-500/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <Play size={20} className="text-green-500" />
-                  </div>
-                </div>
-
-                {/* Sidebar Metadata */}
-                <div className="space-y-1 py-1">
-                  <h4 className="text-sm font-bold text-white line-clamp-2 leading-tight group-hover:text-green-500 transition-colors">
-                    Distributed Pipeline Systems: Vol. {i}
-                  </h4>
-                  <p className="text-[10px] text-slate-500 font-mono uppercase tracking-tighter">
-                    StreamIt Engineering
-                  </p>
-                  <p className="text-[10px] text-slate-600">
-                    42K views • 1 day ago
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </aside>
+        <UpNext />
       </div>
     </main>
   );
