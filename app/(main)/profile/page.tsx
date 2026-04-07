@@ -27,7 +27,7 @@ const Profile = () => {
 
   return (
     <main className="min-h-screen text-slate-200 md:p-4">
-      <section className="bg-[#0d0d0d] border border-white/5 rounded-4xl md:rounded-[3rem] p-6 md:p-12 shadow-2xl">
+      <section className="bg-[#0d0d0d] border border-white/5 rounded-4xl md:rounded-[3rem] p-6 md:p-12 shadow-2xl mb-6">
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
           {/* Avatar */}
           <div className="relative h-28 w-28 md:h-36 md:w-36 rounded-full overflow-hidden border-2 border-green-500/20">
@@ -84,6 +84,27 @@ const Profile = () => {
           </div>
         </div>
       </section>
+      <header className="flex justify-between items-center mb-12 p-4 md:p-0">
+        <div>
+          <h1 className="text-4xl font-bold text-white tracking-tighter">
+            Your <span className="text-green-500 font-mono">History</span>
+          </h1>
+          <p className="text-slate-500 font-mono text-[10px] uppercase tracking-[0.3em] mt-1">
+            Watch history management coming soon!
+          </p>
+        </div>
+      </header>
+
+      <header className="flex justify-between items-center mb-12 p-4 md:p-0">
+        <div>
+          <h1 className="text-4xl font-bold text-white tracking-tighter">
+            Your <span className="text-green-500 font-mono">Playlists</span>
+          </h1>
+          <p className="text-slate-500 font-mono text-[10px] uppercase tracking-[0.3em] mt-1">
+            Playlist management coming soon!
+          </p>
+        </div>
+      </header>
     </main>
   );
 };
