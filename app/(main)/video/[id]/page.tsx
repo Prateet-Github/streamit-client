@@ -7,6 +7,7 @@ import UpNext from "@/components/sections/UpNext";
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`http://localhost:5001/api/video/${id}`, {
     cache: "no-store",
+    // next: { revalidate: 10 }
   });
 
   if (!res.ok) throw new Error("Failed to fetch video");

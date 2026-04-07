@@ -1,43 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Plus, Loader2, PlayCircle } from "lucide-react";
 import UploadModal from "@/components/modals/UploadModal";
 import VideoCard from "@/components/ui/videoCard";
-import api from "@/services/api";
-import { Video } from "@/types/video";
+import { useMyVideos } from "@/queries/my-videos";
 
 export default function Dashboard() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-
-    const fetchVideos = async () => {
-      try {
-        const { data } = await api.get("/video/my-videos");
-        setVideos(data);
-
-        const isProcessing = data.some((v: Video) => v.status === "PROCESSING");
-
-        if (isProcessing) {
-          timeout = setTimeout(fetchVideos, 5000); // polling every 5 seconds if any video is still processing
-        }
-      } catch (error) {
-        console.error("Error fetching videos:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchVideos();
-
-    return () => {
-      if (timeout) clearTimeout(timeout);
-    };
-  }, []);
+  const { data: videos = [], isLoading, refetch } = useMyVideos();
 
   return (
     <div className="min-h-screen">
@@ -54,12 +26,10 @@ export default function Dashboard() {
 
         <button
           onClick={() => setIsUploadOpen(true)}
-          className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black px-4 py-3 rounded-2xl font-bold transition-all active:scale-95 shadow-[0_0_30px_rgba(34,197,94,0.15)]"
+          className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black px-4 py-3 rounded-2xl font-bold transition-all active:scale-95"
         >
           <Plus size={20} strokeWidth={3} />
-          <span className="text-sm uppercase tracking-tight hidden md:flex">
-            New Upload
-          </span>
+          <span className="text-sm uppercase hidden md:flex">New Upload</span>
         </button>
       </header>
 
@@ -68,8 +38,8 @@ export default function Dashboard() {
         {isLoading ? (
           <div className="h-[40vh] flex flex-col items-center justify-center gap-4">
             <Loader2 className="animate-spin text-green-500" size={32} />
-            <p className="text-slate-600 font-mono text-xs uppercase tracking-widest">
-              Pinging Workers...
+            <p className="text-slate-600 text-xs uppercase">
+              Fetching videos...
             </p>
           </div>
         ) : videos.length > 0 ? (
@@ -87,28 +57,23 @@ export default function Dashboard() {
                       : ""
                   }`}
                 >
-                  {/* PROCESSING Overlay */}
+                  {/* PROCESSING */}
                   {isProcessing && (
-                    <div className="absolute inset-0 z-10 bg-black/60 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center gap-2 border border-white/5">
+                    <div className="absolute inset-0 z-10 bg-black/60 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center gap-2">
                       <Loader2
                         className="animate-spin text-green-500"
                         size={24}
                       />
-                      <span className="text-[10px] font-mono font-bold text-white uppercase tracking-widest">
-                        Transcoding
-                      </span>
-
-                      {/* Progress */}
-                      <span className="text-xs text-slate-400">
-                        {video.processingProgress || 0}%
+                      <span className="text-xs text-white uppercase">
+                        Processing
                       </span>
                     </div>
                   )}
 
-                  {/* FAILED Overlay */}
+                  {/* FAILED */}
                   {isFailed && (
-                    <div className="absolute inset-0 z-10 bg-red-500/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-red-500/30">
-                      <span className="text-red-400 text-xs font-mono uppercase tracking-widest">
+                    <div className="absolute inset-0 z-10 bg-red-500/20 rounded-2xl flex items-center justify-center">
+                      <span className="text-red-400 text-xs uppercase">
                         Failed
                       </span>
                     </div>
@@ -122,7 +87,7 @@ export default function Dashboard() {
                         ? `${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.thumbnailKey}`
                         : "/placeholder.png"
                     }
-                    channelName=" "
+                    channelName="Streamit"
                     views={video.views || 0}
                     createdAt={video.createdAt}
                   />
@@ -131,19 +96,9 @@ export default function Dashboard() {
             })}
           </div>
         ) : (
-          /* Empty State */
-          <div className="border-2 border-dashed border-white/5 rounded-[3rem] h-[50vh] flex flex-col items-center justify-center gap-6 bg-white/1">
-            <div className="p-6 rounded-full bg-white/5 text-slate-700">
-              <PlayCircle size={48} strokeWidth={1} />
-            </div>
-            <div className="text-center">
-              <p className="text-slate-400 font-bold text-lg">
-                No assets found
-              </p>
-              <p className="text-slate-600 text-sm mt-1">
-                Initialize your first pipeline job to get started.
-              </p>
-            </div>
+          <div className="h-[50vh] flex flex-col items-center justify-center gap-4">
+            <PlayCircle size={48} className="text-slate-600" />
+            <p className="text-slate-400">No videos yet</p>
           </div>
         )}
       </section>
@@ -153,7 +108,7 @@ export default function Dashboard() {
         isOpen={isUploadOpen}
         onClose={() => {
           setIsUploadOpen(false);
-          window.location.reload(); // force refresh after upload
+          refetch();
         }}
       />
     </div>
