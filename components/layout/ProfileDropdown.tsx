@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { User, Upload, Settings, LogOut, ChevronRight } from "lucide-react";
+import { LogOut, ChevronRight } from "lucide-react";
 import { useCurrentUser } from "@/queries/auth";
 import useLogout from "@/hooks/useLogout";
 import Link from "next/link";
+import { menuItems } from "@/data/dropDownItems";
 
 type ProfileDropdownProps = {
   closeDropdown: () => void;
@@ -15,12 +16,6 @@ export default function ProfileDropdown({
 }: ProfileDropdownProps) {
   const { data: currentUser, isLoading } = useCurrentUser();
   const logout = useLogout();
-
-  const menuItems = [
-    { icon: User, label: "My Profile", href: "/profile" },
-    { icon: Upload, label: "Studio Dashboard", href: "/dashboard" },
-    { icon: Settings, label: "Settings", href: "/settings" },
-  ];
 
   if (isLoading) {
     return (
@@ -82,7 +77,7 @@ export default function ProfileDropdown({
         ))}
       </div>
 
-      {/* Footer / Logout */}
+      {/* Logout */}
       <div className="p-3 bg-white/1">
         <button
           onClick={() => {
