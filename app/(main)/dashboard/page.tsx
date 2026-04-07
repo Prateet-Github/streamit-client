@@ -12,9 +12,9 @@ export default function Dashboard() {
   const { data: videos = [], isLoading, refetch } = useMyVideos();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen md:p-4">
       {/* Header */}
-      <header className="flex justify-between items-center mb-12">
+      <header className="flex justify-between items-center mb-12 p-4 md:p-0">
         <div>
           <h1 className="text-4xl font-bold text-white tracking-tighter">
             Your <span className="text-green-500 font-mono">Studio</span>

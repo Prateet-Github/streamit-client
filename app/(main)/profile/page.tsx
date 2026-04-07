@@ -26,7 +26,7 @@ const Profile = () => {
   }
 
   return (
-    <main className="min-h-screen text-slate-200">
+    <main className="min-h-screen text-slate-200 md:p-4">
       <section className="bg-[#0d0d0d] border border-white/5 rounded-4xl md:rounded-[3rem] p-6 md:p-12 shadow-2xl">
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
           {/* Avatar */}

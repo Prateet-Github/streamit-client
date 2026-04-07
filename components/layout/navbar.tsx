@@ -30,7 +30,7 @@ export default function Navbar({
     <>
       {/* TOP NAVBAR */}
       <header className="sticky top-0 bg-[#0d0d0d] z-50 backdrop-blur-md border-b border-white/5 text-white">
-        <nav className="flex items-center justify-between px-3 py-3 max-w-360 mx-auto">
+        <nav className="flex items-center justify-between px-3 py-3 md:px-3">
           {/* LEFT: Logo & Menu */}
           <div className="flex items-center gap-2 md:gap-4">
             <button
