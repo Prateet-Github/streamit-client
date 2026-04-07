@@ -19,6 +19,7 @@ export default async function Home() {
       <div className="grid gap-x-6 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {videos.map((video) => (
           <VideoCard
+          showActions={false}
             key={video._id}
             id={video._id}
             title={video.title}

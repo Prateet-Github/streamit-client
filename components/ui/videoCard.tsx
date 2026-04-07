@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { formatTime } from "@/utils/time";
 import { VideoCardProps } from "@/types/video";
+import { useDeleteVideo } from "@/queries/delete-video";
+import { CircleX } from "lucide-react";
 
 export default function VideoCard({
   id,
@@ -10,7 +14,10 @@ export default function VideoCard({
   channelName,
   createdAt,
   avatar,
+  showActions,
 }: VideoCardProps) {
+  const { mutate: deleteVideo } = useDeleteVideo();
+
   return (
     <Link
       href={`/video/${id}`}
@@ -62,6 +69,22 @@ export default function VideoCard({
             </p>
           </div>
         </div>
+
+        {
+          // Delete button
+
+          showActions && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                deleteVideo(id);
+              }}
+              className="ml-auto p-2 rounded-full text-red-500 font-bold transition-colors cursor-pointer hover:bg-red-500/10"
+            >
+              <CircleX size={20} />
+            </button>
+          )
+        }
       </div>
     </Link>
   );

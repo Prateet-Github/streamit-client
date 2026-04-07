@@ -6,6 +6,7 @@ export type Video = {
   description: string;
   createdAt: string;
   views?: number;
+  showActions?: boolean
   status: "PROCESSING" | "COMPLETED" | "FAILED";
   processingProgress?: number;
   owner?: {
@@ -23,4 +24,5 @@ export type VideoCardProps = {
   views: number;
   createdAt: string;
   avatar?: string;
+  showActions?: boolean
 };

@@ -80,6 +80,7 @@ export default function Dashboard() {
                   )}
 
                   <VideoCard
+                    showActions={true}
                     id={video._id}
                     title={video.title}
                     thumbnail={
