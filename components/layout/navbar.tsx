@@ -9,6 +9,7 @@ import { Search, Menu, X, Home } from "lucide-react";
 import { useCurrentUser } from "@/queries/auth";
 import { usePathname } from "next/navigation";
 import { NavItems as items } from "@/data/navItems";
+import { useSearchVideos } from "@/hooks/useSearch";
 
 type NavbarProps = {
   isSidebarOpen: boolean;
@@ -20,10 +21,13 @@ export default function Navbar({
   setIsSidebarOpen,
 }: NavbarProps) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   const { data: currentUser, isLoading } = useCurrentUser();
+  const { data: results, isLoading: isSearching } = useSearchVideos(search);
   useClickOutside(profileRef, () => setIsProfileOpen(false));
 
   return (
@@ -54,7 +58,7 @@ export default function Navbar({
           </div>
 
           {/* SEARCH */}
-          <div className="relative flex-1 max-w-md mx-4 group">
+          <div className="relative w-full max-w-md md:max-w-sm lg:max-w-md mx-4 md:mx-0 group">
             <Search
               className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-green-500 transition-colors"
               size={16}
@@ -62,8 +66,40 @@ export default function Navbar({
             <input
               type="text"
               placeholder="Search assets..."
-              className="w-full bg-white/5 border border-white/10 px-10 py-2.5 rounded-2xl outline-none focus:border-green-500/50 focus:bg-green-500/5 transition-all text-sm"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+              className="w-full bg-white/5 border border-white/10 px-10 py-2.5 rounded-2xl outline-none focus:border-green-500/50"
             />
+            {isFocused && search && (
+              <div className="absolute  top-full mt-2 w-full bg-[#0d0d0d] border border-white/10 rounded-2xl shadow-xl z-50 max-h-80 overflow-y-auto">
+                {isSearching ? (
+                  <div className="p-4 text-sm text-slate-400">Searching...</div>
+                ) : results.length > 0 ? (
+                  results.map((video: any) => (
+                    <Link
+                      key={video._id}
+                      href={`/video/${video._id}`}
+                      className="flex items-center gap-3 p-3 hover:bg-white/5 transition"
+                    >
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.thumbnailKey}`}
+                        alt={video.title}
+                        width={60}
+                        height={40}
+                        className="rounded-md object-cover"
+                      />
+                      <p className="text-sm line-clamp-2">{video.title}</p>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="p-4 text-sm text-slate-500">
+                    No results found
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* RIGHT: Profile/Auth */}
