@@ -10,6 +10,7 @@ import { useCurrentUser } from "@/queries/auth";
 import { usePathname } from "next/navigation";
 import { NavItems as items } from "@/data/navItems";
 import { useSearchVideos } from "@/hooks/useSearch";
+import { useDebounce } from "@/hooks/useDebounce";
 
 type NavbarProps = {
   isSidebarOpen: boolean;
@@ -26,8 +27,11 @@ export default function Navbar({
   const profileRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
+  const debouncedSearch = useDebounce(search, 500);
+
   const { data: currentUser, isLoading } = useCurrentUser();
-  const { data: results, isLoading: isSearching } = useSearchVideos(search);
+  const { data: results = [], isLoading: isSearching } =
+    useSearchVideos(debouncedSearch);
   useClickOutside(profileRef, () => setIsProfileOpen(false));
 
   return (

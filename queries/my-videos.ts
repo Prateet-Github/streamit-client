@@ -1,14 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "@/services/api";
-
-type Video = {
-  views: number;
-  _id: string;
-  title: string;
-  status: "PROCESSING" | "COMPLETED" | "FAILED";
-  thumbnailKey?: string;
-  createdAt: string;
-};
+import { Video } from "@/types/video";
 
 export const useMyVideos = () => {
   return useQuery<Video[]>({
