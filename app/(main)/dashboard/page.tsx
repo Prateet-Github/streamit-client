@@ -17,7 +17,7 @@ export default function Dashboard() {
     refetch,
   } = useMyVideos();
 
-  // Loading State
+  // Loading
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center gap-4">
@@ -27,30 +27,26 @@ export default function Dashboard() {
     );
   }
 
-  // Error Handling
+  // Error
   if (isError) {
     const err = error as any;
 
-    // Unauthorized
     if (err?.response?.status === 401) {
       return (
-        <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center">
-          <p className="text-green-500 text-lg font-semibold">
-            Please login to view your dashboard
-          </p>
+        <div className="min-h-screen flex items-center justify-center text-green-500">
+          Please login to view your dashboard
         </div>
       );
     }
 
-    // Generic Error
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <p className="text-red-500 text-lg font-semibold">
           Something went wrong
         </p>
         <button
           onClick={() => refetch()}
-          className="px-4 py-2 bg-green-500 text-black rounded-lg font-semibold hover:bg-green-400 transition"
+          className="px-4 py-2 bg-green-500 text-black rounded-lg font-semibold hover:bg-green-400"
         >
           Retry
         </button>
@@ -73,7 +69,7 @@ export default function Dashboard() {
 
         <button
           onClick={() => setIsUploadOpen(true)}
-          className="flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black px-4 py-3 rounded-2xl font-bold transition-all active:scale-95"
+          className="flex items-center gap-2 bg-green-500 hover:scale-105 duration-200 text-black px-4 py-3 rounded-2xl font-bold active:scale-95"
         >
           <Plus size={20} strokeWidth={3} />
           <span className="text-sm uppercase hidden md:flex">New Upload</span>
@@ -89,24 +85,24 @@ export default function Dashboard() {
               const isFailed = video.status === "FAILED";
 
               return (
-                <div
-                  key={video._id}
-                  className={`relative group ${
-                    video.status !== "COMPLETED"
-                      ? "pointer-events-none opacity-70"
-                      : ""
-                  }`}
-                >
-                  {/* Processing */}
+                <div key={video._id} className="relative group">
+                  {/* Processing Overlay */}
                   {isProcessing && (
-                    <div className="absolute inset-0 z-10 bg-black/60 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center gap-2">
+                    <div className="absolute inset-0 z-10 bg-black/70 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center gap-3">
+                      {/* Spinner */}
                       <Loader2
                         className="animate-spin text-green-500"
-                        size={24}
+                        size={28}
                       />
-                      <span className="text-xs text-white uppercase">
+
+                      {/* Text */}
+                      <span className="text-xs text-white uppercase tracking-widest">
                         Processing
                       </span>
+
+                      <div className="w-24 h-0.5 bg-green-500/30 rounded-full overflow-hidden relative">
+                        <div className="absolute inset-0 bg-green-500 animate-pulse" />
+                      </div>
                     </div>
                   )}
 
@@ -119,6 +115,7 @@ export default function Dashboard() {
                     </div>
                   )}
 
+                  {/* Video Card */}
                   <VideoCard
                     showActions
                     id={video._id}
@@ -126,7 +123,7 @@ export default function Dashboard() {
                     thumbnail={
                       video.status === "COMPLETED"
                         ? `${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.thumbnailKey}`
-                        : "/placeholder.png"
+                        : "/fallback.png"
                     }
                     channelName="Streamit"
                     views={video.views || 0}
@@ -137,7 +134,6 @@ export default function Dashboard() {
             })}
           </div>
         ) : (
-          // Empty State
           <div className="h-[50vh] flex flex-col items-center justify-center gap-4">
             <PlayCircle size={48} className="text-slate-600" />
             <p className="text-slate-400">No videos yet</p>
