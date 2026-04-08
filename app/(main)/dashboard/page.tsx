@@ -9,7 +9,54 @@ import { useMyVideos } from "@/queries/my-videos";
 export default function Dashboard() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
 
-  const { data: videos = [], isLoading, refetch } = useMyVideos();
+  const {
+    data: videos = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useMyVideos();
+
+  // Loading State
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center gap-4">
+        <Loader2 className="animate-spin text-green-500" size={32} />
+        <p className="text-slate-600 text-xs uppercase">Loading dashboard...</p>
+      </div>
+    );
+  }
+
+  // Error Handling
+  if (isError) {
+    const err = error as any;
+
+    // Unauthorized
+    if (err?.response?.status === 401) {
+      return (
+        <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center">
+          <p className="text-green-500 text-lg font-semibold">
+            Please login to view your dashboard
+          </p>
+        </div>
+      );
+    }
+
+    // Generic Error
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center">
+        <p className="text-red-500 text-lg font-semibold">
+          Something went wrong
+        </p>
+        <button
+          onClick={() => refetch()}
+          className="px-4 py-2 bg-green-500 text-black rounded-lg font-semibold hover:bg-green-400 transition"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen md:p-4">
@@ -35,14 +82,7 @@ export default function Dashboard() {
 
       {/* Content */}
       <section>
-        {isLoading ? (
-          <div className="h-[40vh] flex flex-col items-center justify-center gap-4">
-            <Loader2 className="animate-spin text-green-500" size={32} />
-            <p className="text-slate-600 text-xs uppercase">
-              Fetching videos...
-            </p>
-          </div>
-        ) : videos.length > 0 ? (
+        {videos.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {videos.map((video) => {
               const isProcessing = video.status === "PROCESSING";
@@ -57,7 +97,7 @@ export default function Dashboard() {
                       : ""
                   }`}
                 >
-                  {/* PROCESSING */}
+                  {/* Processing */}
                   {isProcessing && (
                     <div className="absolute inset-0 z-10 bg-black/60 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center gap-2">
                       <Loader2
@@ -70,7 +110,7 @@ export default function Dashboard() {
                     </div>
                   )}
 
-                  {/* FAILED */}
+                  {/* Failed */}
                   {isFailed && (
                     <div className="absolute inset-0 z-10 bg-red-500/20 rounded-2xl flex items-center justify-center">
                       <span className="text-red-400 text-xs uppercase">
@@ -80,7 +120,7 @@ export default function Dashboard() {
                   )}
 
                   <VideoCard
-                    showActions={true}
+                    showActions
                     id={video._id}
                     title={video.title}
                     thumbnail={
@@ -97,6 +137,7 @@ export default function Dashboard() {
             })}
           </div>
         ) : (
+          // Empty State
           <div className="h-[50vh] flex flex-col items-center justify-center gap-4">
             <PlayCircle size={48} className="text-slate-600" />
             <p className="text-slate-400">No videos yet</p>
