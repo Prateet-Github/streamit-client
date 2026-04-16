@@ -1,8 +1,9 @@
 import VideoPlayer from "@/components/ui/VideoPlayer";
 import Image from "next/image";
-import { ThumbsUp, Share2, MoreHorizontal, CheckCircle2 } from "lucide-react";
+import { Share2, MoreHorizontal, CheckCircle2 } from "lucide-react";
 import { Video } from "@/types/video";
 import UpNext from "@/components/sections/UpNext";
+import LikeSection from "@/components/sections/LikeSection";
 
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`http://localhost:5001/api/video/${id}`, {
@@ -70,7 +71,7 @@ export default async function VideoPage({
 
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
-                <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
+                {/* <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
                   <button className="flex items-center gap-2 px-4 py-2 hover:bg-white/5 rounded-l-full border-r border-white/10 transition-all">
                     <ThumbsUp size={18} className="text-slate-400" />{" "}
                     <span className="text-xs font-bold">12K</span>
@@ -78,7 +79,8 @@ export default async function VideoPage({
                   <button className="px-4 py-2 hover:bg-white/5 rounded-r-full transition-all">
                     <ThumbsUp size={18} className="rotate-180 text-slate-400" />
                   </button>
-                </div>
+                </div> */}
+                <LikeSection videoId={id} />
                 <button className="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2.5 rounded-full hover:bg-white/10 transition-all text-xs font-bold uppercase tracking-widest">
                   <Share2 size={18} /> Share
                 </button>

@@ -50,11 +50,11 @@ export default function Navbar({
 
             <Link
               href="/"
-              className="font-bold text-xl md:text-2xl tracking-tighter flex items-center gap-2"
+              className="font-bold text-xl md:text-3xl tracking-tighter flex items-center gap-2"
             >
-              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-black">
+              {/* <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-black">
                 <Home size={18} fill="black" />
-              </div>
+              </div> */}
               <span className="hidden sm:inline-block text-green-500">
                 StreamIt
               </span>
@@ -69,7 +69,7 @@ export default function Navbar({
             />
             <input
               type="text"
-              placeholder="Search assets..."
+              placeholder="Search videos..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onFocus={() => setIsFocused(true)}
