@@ -4,6 +4,7 @@ import { Share2, MoreHorizontal, CheckCircle2 } from "lucide-react";
 import { Video } from "@/types/video";
 import UpNext from "@/components/sections/UpNext";
 import LikeSection from "@/components/sections/LikeSection";
+import CommentSection from "@/components/sections/CommentSection";
 
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`http://localhost:5001/api/video/${id}`, {
@@ -90,6 +91,8 @@ export default async function VideoPage({
               </div>
             </div>
 
+            
+
             {/* Description Card */}
             <div className="bg-[#121212] border border-white/5 p-6 rounded-3xl group transition-all hover:bg-white/4">
               <div className="flex gap-4 text-xs font-mono font-bold text-green-500/80 mb-3 uppercase tracking-widest">
@@ -101,6 +104,8 @@ export default async function VideoPage({
                   "No description provided for this pipeline asset."}
               </p>
             </div>
+
+            <CommentSection videoId={id} />
           </div>
         </div>
 
