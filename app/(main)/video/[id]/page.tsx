@@ -5,6 +5,7 @@ import { Video } from "@/types/video";
 import UpNext from "@/components/sections/UpNext";
 import LikeSection from "@/components/sections/LikeSection";
 import CommentSection from "@/components/sections/CommentSection";
+import Link from "next/link";
 
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`http://localhost:5001/api/video/${id}`, {
@@ -57,7 +58,9 @@ export default async function VideoPage({
                 <div>
                   <div className="flex items-center gap-1">
                     <span className="font-bold text-white hover:text-green-500 transition-colors cursor-pointer">
-                      {video.owner?.name || "StreamIt Creator"}
+                      <Link href={`/channel/${video.owner?.username}`}>
+                        {video.owner?.name}
+                      </Link>
                     </span>
                     <CheckCircle2 size={14} className="text-green-500" />
                   </div>
@@ -90,8 +93,6 @@ export default async function VideoPage({
                 </button>
               </div>
             </div>
-
-            
 
             {/* Description Card */}
             <div className="bg-[#121212] border border-white/5 p-6 rounded-3xl group transition-all hover:bg-white/4">
