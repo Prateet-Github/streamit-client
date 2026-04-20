@@ -21,7 +21,39 @@ export const useToggleSubscription = (channelId: string) => {
       return res.data;
     },
 
-    onSuccess: () => {
+    onMutate: async () => {
+      await queryClient.cancelQueries({
+        queryKey: ["subscription", channelId],
+      });
+
+      const prev = queryClient.getQueryData<any>([
+        "subscription",
+        channelId,
+      ]);
+
+      queryClient.setQueryData(["subscription", channelId], (old: any) => {
+        if (!old) return old;
+
+        const isSubscribed = !old.isSubscribed;
+
+        return {
+          ...old,
+          isSubscribed,
+          subscribersCount: old.subscribersCount + (isSubscribed ? 1 : -1),
+        };
+      });
+
+      return { prev };
+    },
+
+    onError: (_err, _vars, context) => {
+      queryClient.setQueryData(
+        ["subscription", channelId],
+        context?.prev
+      );
+    },
+
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ["subscription", channelId],
       });
