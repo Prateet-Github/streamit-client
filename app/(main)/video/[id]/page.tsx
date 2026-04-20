@@ -6,6 +6,7 @@ import UpNext from "@/components/sections/UpNext";
 import LikeSection from "@/components/sections/LikeSection";
 import CommentSection from "@/components/sections/CommentSection";
 import Link from "next/link";
+import SubscribeButton from "@/components/ui/SubscriptionButton";
 
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`http://localhost:5001/api/video/${id}`, {
@@ -68,9 +69,7 @@ export default async function VideoPage({
                     @{video.owner?.username || "unknown_user"}
                   </p>
                 </div>
-                <button className="ml-4 bg-white text-black px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-green-500 transition-all active:scale-95">
-                  Subscribe
-                </button>
+                <SubscribeButton channelId={video.owner?.id || ""} />
               </div>
 
               {/* Action Buttons */}
