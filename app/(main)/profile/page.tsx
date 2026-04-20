@@ -6,9 +6,13 @@ import { formatDate } from "@/utils/time";
 import { useCurrentUser } from "@/queries/auth";
 import { useUpdateProfile } from "@/queries/auth";
 import { useState, useEffect } from "react";
+import { useSubscriptionStatus } from "@/queries/subscription";
 
-const Profile = () => {
+const Profile = ({ channelId }: { channelId: string }) => {
   const { data: currentUser, isLoading, isError, error } = useCurrentUser();
+  const { data } = useSubscriptionStatus(channelId);
+
+  const count = data?.subscribersCount ?? 0;
 
   const updateProfile = useUpdateProfile();
 
@@ -153,7 +157,7 @@ const Profile = () => {
         </div>
 
         {/* Meta */}
-        <div className="mt-10 grid grid-cols-3 gap-4 max-w-md">
+        <div className="mt-10 flex flex-wrap gap-8 border-t border-white/5 pt-6">
           <div>
             <p className="text-xs text-slate-500">Assets</p>
             <p className="text-xl font-bold">24</p>
@@ -167,6 +171,10 @@ const Profile = () => {
             <p className="text-xl font-bold">
               {formatDate(currentUser.createdAt)}
             </p>
+          </div>
+          <div>
+            <p className="text-xs text-slate-500">Subscribers</p>
+            <p className="text-xl font-bold">{count}</p>
           </div>
         </div>
       </section>

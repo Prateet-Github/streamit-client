@@ -1,5 +1,6 @@
 import Image from "next/image";
 import VideoCard from "@/components/ui/videoCard";
+import SubscribeButton from "@/components/ui/SubscriptionButton";
 
 async function getChannel(username: string) {
   const res = await fetch(`http://localhost:5001/api/channel/${username}`, {
@@ -39,6 +40,7 @@ export default async function Channel({
         </div>
 
         {/* (later) Subscribe button */}
+        <SubscribeButton channelId={user._id} />
       </section>
 
       {/* VIDEOS */}
