@@ -9,7 +9,7 @@ import Link from "next/link";
 import SubscribeButton from "@/components/ui/SubscriptionButton";
 
 async function getVideo(id: string): Promise<Video> {
-  const res = await fetch(`http://localhost:5001/api/video/${id}`, {
+  const res = await fetch(`http://localhost:8080/api/video/${id}`, {
     cache: "no-store",
     // next: { revalidate: 10 }
   });
@@ -34,7 +34,7 @@ export default async function VideoPage({
         <div className="lg:col-span-2 space-y-6">
           {/* Video Player */}
           <div className="w-full aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/5">
-            <VideoPlayer src={video.hlsUrl} />
+            <VideoPlayer  src={`${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.hlsUrl}`} />
           </div>
 
           {/* Video Info Header */}

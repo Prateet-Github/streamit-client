@@ -1,12 +1,27 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import api from "@/services/api";
 
-export const useToggleLike = () => {
+export const useLikeVideo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (videoId: string) =>
-      api.post(`/like/${videoId}`),
+      api.post(`/videos/${videoId}/like`),
+
+    onSuccess: (_, videoId) => {
+      queryClient.invalidateQueries({
+        queryKey: ["like", videoId],
+      });
+    },
+  });
+};
+
+export const useUnlikeVideo = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (videoId: string) =>
+      api.delete(`/videos/${videoId}/like`),
 
     onSuccess: (_, videoId) => {
       queryClient.invalidateQueries({
@@ -21,8 +36,8 @@ export const useLikeData = (videoId: string) => {
   return useQuery({
     queryKey: ["like", videoId],
     queryFn: async () => {
-      const res = await api.get(`/like/${videoId}`);
-      return res.data;
+      const { data } = await api.get(`/videos/${videoId}/like`);
+      return data;
     },
   });
 };
