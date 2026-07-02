@@ -1,17 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { useReplies, useAddComment } from "@/queries/comment";
+import { useReplies, useAddReply, useDeleteComment } from "@/queries/comment";
 import Image from "next/image";
 import { formatTime } from "@/utils/time";
+import { useCurrentUser } from "@/queries/auth";
 
-export default function CommentItem({ comment }: any) {
+type Props = {
+  comment: any;
+  videoId: string;
+};
+
+export default function CommentItem({ comment, videoId }: Props) {
   const [showReplies, setShowReplies] = useState(false);
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [replyContent, setReplyContent] = useState("");
 
-  const { data, isLoading } = useReplies(comment._id, showReplies);
-  const addComment = useAddComment(comment.video);
+  const { data: replies, isLoading } = useReplies(comment.id, showReplies);
+
+  const addReply = useAddReply(comment.id, videoId);
+  const deleteComment = useDeleteComment(videoId);
+
+  const { data: currentUser } = useCurrentUser();
+
+  const canDelete = currentUser?.id === comment.user.id;
 
   return (
     <div className="flex gap-3">
@@ -31,12 +43,13 @@ export default function CommentItem({ comment }: any) {
           <p className="text-sm font-semibold text-white">
             {comment.user.name}
           </p>
+
           <span className="text-xs text-slate-500">
             {formatTime(comment.createdAt)}
           </span>
         </div>
 
-        {/* Comment Text */}
+        {/* Comment */}
         <p className="text-sm text-slate-300 mt-1 leading-relaxed">
           {comment.content}
         </p>
@@ -51,8 +64,18 @@ export default function CommentItem({ comment }: any) {
           >
             Reply
           </button>
+
+          {currentUser?.id === comment.user.id && (
+            <button
+              onClick={() => deleteComment.mutate(comment.id)}
+              className="text-red-500 hover:text-red-400 transition"
+            >
+              Delete
+            </button>
+          )}
         </div>
 
+        {/* Reply Input */}
         {showReplyInput && (
           <div className="flex gap-2 mt-3">
             <Image
@@ -86,16 +109,15 @@ export default function CommentItem({ comment }: any) {
                   onClick={() => {
                     if (!replyContent.trim()) return;
 
-                    addComment.mutate(
+                    addReply.mutate(
                       {
                         content: replyContent,
-                        parentComment: comment._id,
                       },
                       {
                         onSuccess: () => {
                           setReplyContent("");
                           setShowReplyInput(false);
-                          setShowReplies(true); // auto open replies
+                          setShowReplies(true);
                         },
                       },
                     );
@@ -127,8 +149,8 @@ export default function CommentItem({ comment }: any) {
             {isLoading ? (
               <p className="text-xs text-slate-500">Loading replies...</p>
             ) : (
-              data?.replies.map((reply: any) => (
-                <div key={reply._id} className="flex gap-3">
+              replies?.map((reply: any) => (
+                <div key={reply.id} className="flex gap-3">
                   <Image
                     src="/pfp.jpg"
                     alt="User avatar"
@@ -142,6 +164,7 @@ export default function CommentItem({ comment }: any) {
                       <p className="text-xs font-semibold text-white">
                         {reply.user.name}
                       </p>
+
                       <span className="text-[10px] text-slate-500">
                         {formatTime(reply.createdAt)}
                       </span>

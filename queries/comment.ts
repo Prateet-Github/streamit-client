@@ -5,24 +5,15 @@ export const useAddComment = (videoId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      content,
-      parentComment,
-    }: {
-      content: string;
-      parentComment?: string;
-    }) => {
-      const res = await api.post("/comment", {
-        videoId,
+    mutationFn: async ({ content }: { content: string }) => {
+      const { data } = await api.post(`/comments/video/${videoId}`, {
         content,
-        parentComment,
       });
 
-      return res.data;
+      return data;
     },
 
     onSuccess: () => {
-      // refetch comments after adding
       queryClient.invalidateQueries({
         queryKey: ["comments", videoId],
       });
@@ -38,7 +29,7 @@ export const useReplies = (
     queryKey: ["replies", commentId],
 
     queryFn: async () => {
-      const res = await api.get(`/comment/replies/${commentId}`);
+      const res = await api.get(`/comments/${commentId}/replies`);
       return res.data;
     },
 
@@ -54,11 +45,58 @@ export const useComments = (videoId: string) => {
     queryKey: ["comments", videoId],
 
     queryFn: async () => {
-      const res = await api.get(`/comment/video/${videoId}`);
+      const res = await api.get(`/comments/video/${videoId}`);
       return res.data;
     },
 
     enabled: !!videoId, // don't fetch if videoId is falsy
     staleTime: 1000 * 30, // cache for 30s
+  });
+};
+
+export const useAddReply = (
+  commentId: string,
+  videoId: string,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ content }: { content: string }) => {
+      const { data } = await api.post(
+        `/comments/${commentId}/replies`,
+        {
+          content,
+        },
+      );
+
+      return data;
+    },
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["replies", commentId],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["comments", videoId],
+      });
+    },
+  });
+};
+
+export const useDeleteComment = (videoId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (commentId: string) => {
+      const { data } = await api.delete(`/comments/${commentId}`);
+      return data;
+    },
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["comments", videoId],
+      });
+    },
   });
 };

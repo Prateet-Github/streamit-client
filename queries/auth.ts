@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/services/api";
 
+
 export const useRegister = () => {
   return useMutation({
     mutationFn: async (data: {
@@ -44,7 +45,7 @@ export const useUpdateProfile = () => {
 
   return useMutation({
     mutationFn: async (data: { name?: string; bio?: string }) => {
-      const res = await api.put("/auth/profile", data);
+      const res = await api.patch("/auth/profile", data);
       return res.data;
     },
 

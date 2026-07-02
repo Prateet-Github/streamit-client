@@ -46,8 +46,8 @@ const CommentSection = ({ videoId }: { videoId: string }) => {
         <p className="text-slate-500 text-sm">Loading comments...</p>
       ) : (
         <div className="space-y-6">
-          {data?.comments.map((comment: any) => (
-            <CommentItem key={comment._id} comment={comment} />
+          {(data ?? []).map((comment: any) => (
+            <CommentItem key={comment.id} comment={comment} videoId={videoId} />
           ))}
         </div>
       )}
