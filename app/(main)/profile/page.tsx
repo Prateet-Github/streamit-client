@@ -174,7 +174,9 @@ const Profile = ({ channelId }: { channelId: string }) => {
           </div>
           <div>
             <p className="text-xs text-slate-500">Subscribers</p>
-            <p className="text-xl font-bold">{count}</p>
+            <p className="text-xl font-bold">
+              {currentUser.subscribersCount ?? 0}
+            </p>
           </div>
         </div>
       </section>
