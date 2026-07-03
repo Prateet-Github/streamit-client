@@ -1,15 +1,21 @@
 import Image from "next/image";
 import VideoCard from "@/components/ui/videoCard";
 import SubscribeButton from "@/components/ui/SubscriptionButton";
+import ChannelHeader from "@/components/ui/ChannelHeader";
 
 async function getChannel(username: string) {
-  const res = await fetch(`http://localhost:5001/api/channel/${username}`, {
+  const res = await fetch(`http://localhost:8080/api/channels/${username}`, {
     cache: "no-store",
   });
 
+  console.log("status", res.status);
+
+  const text = await res.text();
+  // console.log(text);
+
   if (!res.ok) throw new Error("Failed to fetch channel");
 
-  return res.json();
+  return JSON.parse(text);
 }
 
 export default async function Channel({
@@ -31,16 +37,7 @@ export default async function Channel({
           <Image src="/pfp.jpg" alt={user.name} fill className="object-cover" />
         </div>
 
-        <div className="text-center md:text-left">
-          <h1 className="text-3xl font-bold">{user.name}</h1>
-          <p className="text-green-500 text-sm">@{user.username}</p>
-          <p className="text-slate-400 mt-2 text-sm max-w-md">
-            {user.bio || "No bio available."}
-          </p>
-        </div>
-
-        {/* (later) Subscribe button */}
-        <SubscribeButton channelId={user._id} />
+        <ChannelHeader user={user} />
       </section>
 
       {/* VIDEOS */}
