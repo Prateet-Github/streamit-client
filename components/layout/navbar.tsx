@@ -156,7 +156,7 @@ export default function Navbar({
 
       {/* MOBILE BOTTOM NAV */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0d0d0d]/90 backdrop-blur-xl border-t border-white/5 px-4 py-3">
-        <div className="grid grid-cols-3 items-center">
+        <div className="flex  justify-between items-center gap-4">
           {items.map(({ label, icon: Icon, href }) => (
             <MobileNavItem
               key={label}

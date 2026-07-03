@@ -34,11 +34,11 @@ const Subscriptions = () => {
           </p>
         </div>
       ) : (
-        <div className="grid gap-4">
+        <div className="grid gap-4 p-4 md:p-0">
           {data.map((channel: any) => (
             <Link
               key={channel.id}
-            href={`/channel/${channel.username}`}
+              href={`/channel/${channel.username}`}
               className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/10 transition"
             >
               <div className="flex items-center gap-4">
