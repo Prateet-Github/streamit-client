@@ -7,6 +7,8 @@ import LikeSection from "@/components/sections/LikeSection";
 import CommentSection from "@/components/sections/CommentSection";
 import Link from "next/link";
 import SubscribeButton from "@/components/ui/SubscriptionButton";
+import { formatDate } from "@/utils/time";
+import ShareButton from "@/components/ui/ShareButton";
 
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`http://localhost:8080/api/video/${id}`, {
@@ -34,7 +36,9 @@ export default async function VideoPage({
         <div className="lg:col-span-2 space-y-6">
           {/* Video Player */}
           <div className="w-full aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/5">
-            <VideoPlayer  src={`${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.hlsUrl}`} />
+            <VideoPlayer
+              src={`${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.hlsUrl}`}
+            />
           </div>
 
           {/* Video Info Header */}
@@ -84,9 +88,7 @@ export default async function VideoPage({
                   </button>
                 </div> */}
                 <LikeSection videoId={id} />
-                <button className="flex items-center gap-2 bg-white/5 border border-white/10 px-5 py-2.5 rounded-full hover:bg-white/10 transition-all text-xs font-bold uppercase tracking-widest">
-                  <Share2 size={18} /> Share
-                </button>
+                <ShareButton videoId={id} title={video.title} />
                 <button className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-white/10">
                   <MoreHorizontal size={18} />
                 </button>
@@ -97,7 +99,7 @@ export default async function VideoPage({
             <div className="bg-[#121212] border border-white/5 p-6 rounded-3xl group transition-all hover:bg-white/4">
               <div className="flex gap-4 text-xs font-mono font-bold text-green-500/80 mb-3 uppercase tracking-widest">
                 <span>142K views</span>
-                <span>April 2026</span>
+                <span>{formatDate(video?.createdAt)}</span>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed whitespace-pre-wrap">
                 {video.description ||
