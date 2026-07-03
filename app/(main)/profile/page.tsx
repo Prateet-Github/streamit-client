@@ -6,11 +6,11 @@ import { formatDate } from "@/utils/time";
 import { useCurrentUser } from "@/queries/auth";
 import { useUpdateProfile } from "@/queries/auth";
 import { useState, useEffect } from "react";
-import { useSubscriptionStatus } from "@/queries/subscription";
+import { useSubscriptionData } from "@/queries/subscription";
 
 const Profile = ({ channelId }: { channelId: string }) => {
   const { data: currentUser, isLoading, isError, error } = useCurrentUser();
-  const { data } = useSubscriptionStatus(channelId);
+  const { data } = useSubscriptionData(channelId);
 
   const count = data?.subscribersCount ?? 0;
 

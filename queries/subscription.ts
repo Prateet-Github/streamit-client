@@ -1,61 +1,61 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/services/api";
 
-export const useSubscriptionStatus = (channelId: string) => {
+export const useSubscriptionData = (channelId: string) => {
   return useQuery({
     queryKey: ["subscription", channelId],
     queryFn: async () => {
-      const res = await api.get(`/subscription/${channelId}`);
-      return res.data;
+      const { data } = await api.get(`/subscriptions/${channelId}`);
+      return data;
     },
     enabled: !!channelId,
   });
 };
 
-export const useToggleSubscription = (channelId: string) => {
+export const useMySubscriptions = () => {
+  return useQuery({
+    queryKey: ["my-subscriptions"],
+    queryFn: async () => {
+      const { data } = await api.get("/subscriptions/");
+      console.log("my subscriptions data", data);
+      return data;
+    },
+  });
+};
+
+export const useSubscribe = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => {
-      const res = await api.post(`/subscription/${channelId}`);
-      return res.data;
-    },
+    mutationFn: (channelId: string) =>
+      api.post(`/subscriptions/${channelId}`),
 
-    onMutate: async () => {
-      await queryClient.cancelQueries({
-        queryKey: ["subscription", channelId],
-      });
-
-      const prev = queryClient.getQueryData<any>([
-        "subscription",
-        channelId,
-      ]);
-
-      queryClient.setQueryData(["subscription", channelId], (old: any) => {
-        if (!old) return old;
-
-        const isSubscribed = !old.isSubscribed;
-
-        return {
-          ...old,
-          isSubscribed,
-          subscribersCount: old.subscribersCount + (isSubscribed ? 1 : -1),
-        };
-      });
-
-      return { prev };
-    },
-
-    onError: (_err, _vars, context) => {
-      queryClient.setQueryData(
-        ["subscription", channelId],
-        context?.prev
-      );
-    },
-
-    onSettled: () => {
+    onSuccess: (_, channelId) => {
       queryClient.invalidateQueries({
         queryKey: ["subscription", channelId],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["my-subscriptions"],
+      });
+    },
+  });
+};
+
+export const useUnsubscribe = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (channelId: string) =>
+      api.delete(`/subscriptions/${channelId}`),
+
+    onSuccess: (_, channelId) => {
+      queryClient.invalidateQueries({
+        queryKey: ["subscription", channelId],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["my-subscriptions"],
       });
     },
   });
