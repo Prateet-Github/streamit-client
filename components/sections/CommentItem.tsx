@@ -5,6 +5,7 @@ import { useReplies, useAddReply, useDeleteComment } from "@/queries/comment";
 import Image from "next/image";
 import { formatTime } from "@/utils/time";
 import { useCurrentUser } from "@/queries/auth";
+import { toast } from "react-hot-toast";
 
 type Props = {
   comment: any;
@@ -24,6 +25,15 @@ export default function CommentItem({ comment, videoId }: Props) {
   const { data: currentUser } = useCurrentUser();
 
   const canDelete = currentUser?.id === comment.user.id;
+
+  const handleReply = () => {
+    if (!currentUser) {
+      toast.error("Please login to reply.");
+      return;
+    }
+
+    setShowReplyInput((prev) => !prev);
+  };
 
   return (
     <div className="flex gap-3">
@@ -58,10 +68,7 @@ export default function CommentItem({ comment, videoId }: Props) {
         <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
           <button className="hover:text-white transition">Like</button>
 
-          <button
-            onClick={() => setShowReplyInput((prev) => !prev)}
-            className="hover:text-white transition"
-          >
+          <button onClick={handleReply} className="hover:text-white transition">
             Reply
           </button>
 

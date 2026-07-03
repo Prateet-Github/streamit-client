@@ -3,15 +3,25 @@
 import { useState } from "react";
 import { useAddComment, useComments } from "@/queries/comment";
 import CommentItem from "./CommentItem";
+import { toast } from "react-hot-toast";
+import { useCurrentUser } from "@/queries/auth";
 
 const CommentSection = ({ videoId }: { videoId: string }) => {
   const [content, setContent] = useState("");
 
   const { data, isLoading } = useComments(videoId);
+  const { data: currentUser } = useCurrentUser();
   const addComment = useAddComment(videoId);
 
   const handleSubmit = () => {
     if (!content.trim()) return;
+
+    if (!currentUser) {
+      toast("Please login to comment on videos.", {
+        icon: "🔒",
+      });
+      return;
+    }
 
     addComment.mutate(
       { content },

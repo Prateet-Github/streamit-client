@@ -2,9 +2,12 @@
 
 import { ThumbsUp } from "lucide-react";
 import { useLikeData, useLikeVideo, useUnlikeVideo } from "@/queries/like";
+import { toast } from "react-hot-toast";
+import { useCurrentUser } from "@/queries/auth";
 
 export default function LikeSection({ videoId }: { videoId: string }) {
   const { data, isLoading } = useLikeData(videoId);
+  const { data: currentUser } = useCurrentUser();
 
   const likeVideo = useLikeVideo();
   const unlikeVideo = useUnlikeVideo();
@@ -13,6 +16,11 @@ export default function LikeSection({ videoId }: { videoId: string }) {
   const likesCount = data?.likesCount ?? 0;
 
   const handleLike = () => {
+    if (!currentUser) {
+      toast.error("Please login to like videos.");
+      return;
+    }
+
     if (liked) {
       unlikeVideo.mutate(videoId);
     } else {
