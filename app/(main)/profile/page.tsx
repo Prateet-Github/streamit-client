@@ -194,7 +194,7 @@ const Profile = ({ channelId }: { channelId: string }) => {
       </header>
 
       {/* Playlists */}
-      <header className="flex justify-between items-center mb-12 p-4 md:p-0">
+      {/* <header className="flex justify-between items-center mb-12 p-4 md:p-0">
         <div>
           <h1 className="text-4xl font-bold text-white tracking-tighter">
             Your <span className="text-green-500 font-mono">Playlists</span>
@@ -203,7 +203,7 @@ const Profile = ({ channelId }: { channelId: string }) => {
             Playlist management coming soon!
           </p>
         </div>
-      </header>
+      </header> */}
     </main>
   );
 };
