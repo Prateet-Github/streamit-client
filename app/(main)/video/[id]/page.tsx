@@ -28,6 +28,7 @@ export default async function VideoPage({
 }) {
   const { id } = await params;
   const video = await getVideo(id);
+  // console.log("Video data:", video);
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-slate-200 p-4 lg:p-8">
@@ -38,6 +39,7 @@ export default async function VideoPage({
           <div className="w-full aspect-video bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/5">
             <VideoPlayer
               src={`${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.hlsUrl}`}
+              videoId={id}
             />
           </div>
 
@@ -98,7 +100,7 @@ export default async function VideoPage({
             {/* Description Card */}
             <div className="bg-[#121212] border border-white/5 p-6 rounded-3xl group transition-all hover:bg-white/4">
               <div className="flex gap-4 text-xs font-mono font-bold text-green-500/80 mb-3 uppercase tracking-widest">
-                <span>142K views</span>
+                <span>{video?.views} views</span>
                 <span>{formatDate(video?.createdAt)}</span>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed whitespace-pre-wrap">

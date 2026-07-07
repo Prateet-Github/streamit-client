@@ -15,6 +15,7 @@ export default function VideoCard({
   createdAt,
   avatar,
   showActions,
+  views,
 }: VideoCardProps) {
   const { mutate: deleteVideo } = useDeleteVideo();
 
@@ -65,7 +66,7 @@ export default function VideoCard({
             <p className="text-sm text-gray-400">{channelName}</p>{" "}
             <span className="text-xs text-gray-500">•</span>
             <p className="text-xs text-gray-500">
-              10 views • {formatTime(createdAt)}
+              {views} views • {formatTime(createdAt)}
             </p>
           </div>
         </div>

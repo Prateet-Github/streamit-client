@@ -13,6 +13,7 @@ async function getVideos(): Promise<Video[]> {
 
 export default async function Home() {
   const videos = await getVideos();
+  console.log("Fetched videos:", videos);
 
   return (
     <div className="min-h-screen md:p-4">
@@ -29,19 +30,19 @@ export default async function Home() {
       <div className="grid gap-x-6 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {videos.map((video) => (
           <VideoCard
-  key={video._id}
-  showActions={false}
-  id={video._id}
-  title={video.title}
-  thumbnail={
-    video.thumbnailKey
-      ? `${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.thumbnailKey}`
-      : "/fallback.png"
-  }
-  channelName={video.owner?.name || "New Channel"}
-  views={video.views || 0}
-  createdAt={video.createdAt}
-/>
+            key={video._id}
+            showActions={false}
+            id={video._id}
+            title={video.title}
+            thumbnail={
+              video.thumbnailKey
+                ? `${process.env.NEXT_PUBLIC_S3_BASE_URL}/${video.thumbnailKey}`
+                : "/fallback.png"
+            }
+            channelName={video.owner?.name || "New Channel"}
+            views={video?.views || 0}
+            createdAt={video.createdAt}
+          />
         ))}
       </div>
     </div>
