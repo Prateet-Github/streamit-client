@@ -13,7 +13,7 @@ async function getVideos(): Promise<Video[]> {
 
 export default async function Home() {
   const videos = await getVideos();
-  console.log("Fetched videos:", videos);
+  // console.log("Fetched videos:", videos);
 
   return (
     <div className="min-h-screen md:p-4">

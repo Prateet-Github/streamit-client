@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Hls from "hls.js";
 import { useHeartbeat } from "@/queries/video-count";
+import { getViewerId } from "@/utils/viewer";
 
 type Props = {
   videoId: string;
@@ -67,6 +68,7 @@ export default function VideoPlayer({ videoId, src }: Props) {
         heartbeat.mutate({
           videoId,
           elapsed: nextCheckpointRef.current,
+          viewerId: getViewerId(),
         });
 
         nextCheckpointRef.current += 10;
