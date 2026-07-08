@@ -2,10 +2,30 @@
 
 import Link from "next/link";
 import { useMySubscriptions } from "@/queries/subscription";
+import { Loader2 } from "lucide-react";
 
 const Subscriptions = () => {
-  const { data, isLoading } = useMySubscriptions();
+  const { data, isLoading, isError } = useMySubscriptions();
   console.log("subscriptions data", data);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center gap-4">
+        <Loader2 className="animate-spin text-green-500" size={32} />
+        <p className="text-slate-600 text-xs uppercase">
+          Loading subscriptions...
+        </p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-green-500">
+        Please login to view your subscriptions
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen md:p-4">
