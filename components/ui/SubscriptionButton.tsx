@@ -5,9 +5,12 @@ import {
   useSubscriptionData,
   useUnsubscribe,
 } from "@/queries/subscription";
+import { useCurrentUser } from "@/queries/auth";
+import { toast } from "react-hot-toast";
 
 export default function SubscribeButton({ channelId }: { channelId: string }) {
   const { data, isLoading } = useSubscriptionData(channelId);
+  const { data: currentUser } = useCurrentUser();
 
   const subscribe = useSubscribe();
   const unsubscribe = useUnsubscribe();
@@ -16,6 +19,11 @@ export default function SubscribeButton({ channelId }: { channelId: string }) {
   const subscribersCount = data?.subscribersCount ?? 0;
 
   const handleSubscribe = () => {
+    if (!currentUser) {
+      toast.error("Please login to subscribe to channels.");
+      return;
+    }
+
     if (subscribed) {
       unsubscribe.mutate(channelId);
     } else {
