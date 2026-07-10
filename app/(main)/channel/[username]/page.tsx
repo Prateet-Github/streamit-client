@@ -4,9 +4,12 @@ import SubscribeButton from "@/components/ui/SubscriptionButton";
 import ChannelHeader from "@/components/ui/ChannelHeader";
 
 async function getChannel(username: string) {
-  const res = await fetch(`http://localhost:8080/api/channels/${username}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/channels/${username}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   console.log("status", res.status);
 
