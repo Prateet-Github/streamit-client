@@ -3,7 +3,8 @@ import { Video } from "@/types/video";
 
 async function getVideos(): Promise<Video[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/video`, {
-    cache: "no-store",
+    // cache: "no-store",
+    next: { revalidate: 30 },
   });
 
   if (!res.ok) return [];
