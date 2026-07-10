@@ -29,27 +29,9 @@ export default function Dashboard() {
 
   // Error
   if (isError) {
-    const err = error as any;
-
-    if (err?.response?.status === 401) {
-      return (
-        <div className="min-h-screen flex items-center justify-center text-green-500">
-          Please login to view your dashboard
-        </div>
-      );
-    }
-
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <p className="text-red-500 text-lg font-semibold">
-          Something went wrong
-        </p>
-        <button
-          onClick={() => refetch()}
-          className="px-4 py-2 bg-green-500 text-black rounded-lg font-semibold hover:bg-green-400"
-        >
-          Retry
-        </button>
+      <div className="min-h-screen flex items-center justify-center text-green-500">
+        Please login to view your dashboard.
       </div>
     );
   }

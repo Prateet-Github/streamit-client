@@ -38,19 +38,9 @@ const Profile = ({ channelId }: { channelId: string }) => {
   }
 
   if (isError) {
-    const err = error as any;
-
-    if (err?.response?.status === 401) {
-      return (
-        <div className="min-h-screen flex items-center justify-center text-green-500">
-          Please login to view your profile.
-        </div>
-      );
-    }
-
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
-        Something went wrong.
+      <div className="min-h-screen flex items-center justify-center text-green-500">
+        Please login to view your profile
       </div>
     );
   }
