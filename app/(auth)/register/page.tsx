@@ -32,7 +32,7 @@ const Register = () => {
         localStorage.setItem("token", data.token);
         queryClient.setQueryData(["currentUser"], data.user);
         toast.success("Registration successful!");
-        setTimeout(() => router.push("/"), 1000);
+        setTimeout(() => router.push("/login"), 1000);
       },
       onError: (err: any) => {
         toast.error(err.response?.data?.message || "Registration failed");
