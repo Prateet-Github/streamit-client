@@ -11,7 +11,7 @@ import { formatDate } from "@/utils/time";
 import ShareButton from "@/components/ui/ShareButton";
 
 async function getVideo(id: string): Promise<Video> {
-  const res = await fetch(`http://localhost:8080/api/video/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/video/${id}`, {
     cache: "no-store",
     // next: { revalidate: 10 }
   });
