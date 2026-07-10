@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProfileDropdown from "./ProfileDropdown";
 import useClickOutside from "@/hooks/useClickOutside";
-import { Search, Menu, X, Home } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 import { useCurrentUser } from "@/queries/auth";
 import { usePathname } from "next/navigation";
 import { NavItems as items } from "@/data/navItems";
@@ -53,9 +53,6 @@ export default function Navbar({
               href="/"
               className="font-bold text-xl md:text-3xl tracking-tighter flex items-center gap-2"
             >
-              {/* <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-black">
-                <Home size={18} fill="black" />
-              </div> */}
               <span className="hidden sm:inline-block text-green-500">
                 StreamIt
               </span>

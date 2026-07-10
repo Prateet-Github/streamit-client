@@ -13,11 +13,10 @@ export default function Dashboard() {
     data: videos = [],
     isLoading,
     isError,
-    error,
+
     refetch,
   } = useMyVideos();
 
-  // Loading
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center gap-4">
@@ -27,11 +26,10 @@ export default function Dashboard() {
     );
   }
 
-  // Error
   if (isError) {
     return (
       <div className="min-h-screen flex items-center justify-center text-green-500">
-        Please login to view your dashboard.
+        Please login to view your dashboard
       </div>
     );
   }

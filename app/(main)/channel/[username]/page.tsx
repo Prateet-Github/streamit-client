@@ -1,20 +1,18 @@
 import Image from "next/image";
 import VideoCard from "@/components/ui/videoCard";
-import SubscribeButton from "@/components/ui/SubscriptionButton";
 import ChannelHeader from "@/components/ui/ChannelHeader";
 
 async function getChannel(username: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/channels/${username}`,
     {
-      cache: "no-store",
+      next: { revalidate: 60 },
     },
   );
 
   console.log("status", res.status);
 
   const text = await res.text();
-  // console.log(text);
 
   if (!res.ok) throw new Error("Failed to fetch channel");
 

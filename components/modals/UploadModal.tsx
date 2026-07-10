@@ -105,7 +105,7 @@ const UploadModal = ({ isOpen, onClose }: UploadModalProps) => {
           </button>
         </div>
 
-        {/* Modal Content - Scrollable */}
+        {/* Modal Content  */}
         <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* LEFT: Form */}

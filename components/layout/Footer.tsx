@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { socials } from "@/data/socials";
 import { NavItems as items } from "@/data/navItems";

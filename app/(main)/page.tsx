@@ -3,7 +3,6 @@ import { Video } from "@/types/video";
 
 async function getVideos(): Promise<Video[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/video`, {
-    // cache: "no-store",
     next: { revalidate: 30 },
   });
 
@@ -14,7 +13,6 @@ async function getVideos(): Promise<Video[]> {
 
 export default async function Home() {
   const videos = await getVideos();
-  // console.log("Fetched videos:", videos);
 
   return (
     <div className="min-h-screen md:p-4">

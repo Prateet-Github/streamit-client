@@ -6,13 +6,9 @@ import { formatDate } from "@/utils/time";
 import { useCurrentUser } from "@/queries/auth";
 import { useUpdateProfile } from "@/queries/auth";
 import { useState, useEffect } from "react";
-import { useSubscriptionData } from "@/queries/subscription";
 
-const Profile = ({ channelId }: { channelId: string }) => {
-  const { data: currentUser, isLoading, isError, error } = useCurrentUser();
-  const { data } = useSubscriptionData(channelId);
-
-  const count = data?.subscribersCount ?? 0;
+const Profile = () => {
+  const { data: currentUser, isLoading, isError } = useCurrentUser();
 
   const updateProfile = useUpdateProfile();
 
@@ -182,18 +178,6 @@ const Profile = ({ channelId }: { channelId: string }) => {
           </p>
         </div>
       </header>
-
-      {/* Playlists */}
-      {/* <header className="flex justify-between items-center mb-12 p-4 md:p-0">
-        <div>
-          <h1 className="text-4xl font-bold text-white tracking-tighter">
-            Your <span className="text-green-500 font-mono">Playlists</span>
-          </h1>
-          <p className="text-slate-500 font-mono text-[10px] uppercase tracking-[0.3em] mt-1">
-            Playlist management coming soon!
-          </p>
-        </div>
-      </header> */}
     </main>
   );
 };

@@ -1,5 +1,3 @@
-"use client";
-
 import SubscribeButton from "./SubscriptionButton";
 
 type Props = {

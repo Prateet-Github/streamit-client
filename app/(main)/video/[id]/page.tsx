@@ -1,6 +1,6 @@
 import VideoPlayer from "@/components/ui/VideoPlayer";
 import Image from "next/image";
-import { Share2, MoreHorizontal, CheckCircle2 } from "lucide-react";
+import { MoreHorizontal, CheckCircle2 } from "lucide-react";
 import { Video } from "@/types/video";
 import UpNext from "@/components/sections/UpNext";
 import LikeSection from "@/components/sections/LikeSection";
@@ -12,8 +12,7 @@ import ShareButton from "@/components/ui/ShareButton";
 
 async function getVideo(id: string): Promise<Video> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/video/${id}`, {
-    cache: "no-store",
-    // next: { revalidate: 10 }
+    next: { revalidate: 30 },
   });
 
   if (!res.ok) throw new Error("Failed to fetch video");
@@ -28,7 +27,6 @@ export default async function VideoPage({
 }) {
   const { id } = await params;
   const video = await getVideo(id);
-  // console.log("Video data:", video);
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-slate-200 p-4 lg:p-8">
@@ -80,15 +78,6 @@ export default async function VideoPage({
 
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
-                {/* <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
-                  <button className="flex items-center gap-2 px-4 py-2 hover:bg-white/5 rounded-l-full border-r border-white/10 transition-all">
-                    <ThumbsUp size={18} className="text-slate-400" />{" "}
-                    <span className="text-xs font-bold">12K</span>
-                  </button>
-                  <button className="px-4 py-2 hover:bg-white/5 rounded-r-full transition-all">
-                    <ThumbsUp size={18} className="rotate-180 text-slate-400" />
-                  </button>
-                </div> */}
                 <LikeSection videoId={id} />
                 <ShareButton videoId={id} title={video.title} />
                 <button className="p-2.5 bg-white/5 border border-white/10 rounded-full hover:bg-white/10">
@@ -113,7 +102,7 @@ export default async function VideoPage({
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Sidebar (Up Next) */}
+        {/* Up Next */}
         <UpNext />
       </div>
     </main>
